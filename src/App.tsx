@@ -1,5 +1,13 @@
+import Layout from "./components/Layout/Layout";
+
 const App: React.FC = () => {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <>
+      <Layout>
+        <div></div>
+      </Layout>
+    </>
+  );
 };
 
 export default App;
