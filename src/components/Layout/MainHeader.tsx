@@ -11,7 +11,7 @@ const MainHeader = () => {
       {!sidebarActive && <Logo />}
       <div className="flex flex-1 items-center justify-between px-7 py-5">
         <div className="text-2xl font-bold leading-8">Platform Launch</div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <Button title="Add New Task" className="bg-main-purple text-white" />
           <FiMoreVertical className="text-medium-gray text-2xl" />
         </div>
