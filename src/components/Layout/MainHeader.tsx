@@ -3,12 +3,10 @@ import { FiMoreVertical } from "react-icons/fi";
 import Button from "../UI/Button";
 import Logo from "../UI/Logo";
 
-const MainHeader = () => {
-  const sidebarActive = false;
-
+const MainHeader: React.FC<{ sidebarActive: boolean }> = (props) => {
   return (
-    <header className="p5 border-b-lines-light flex border-b-2 bg-white">
-      {!sidebarActive && <Logo />}
+    <header className="border-b-lines-light flex border-b-2 bg-white">
+      {!props.sidebarActive && <Logo />}
       <div className="flex flex-1 items-center justify-between px-7 py-5">
         <div className="text-2xl font-bold leading-8">Platform Launch</div>
         <div className="flex items-center gap-4">
