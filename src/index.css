@@ -14,4 +14,34 @@ html {
 
 body {
   background-color: #f4f7fd;
+  font-weight: medium;
+  font-size: 13px;
+  line-height: 23px;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+}
+h2 {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 23px;
+}
+h3 {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 19px;
+}
+h4 {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 2.4px;
+}
+p {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
 }
