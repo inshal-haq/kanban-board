@@ -1,8 +1,14 @@
 import Layout from "./components/Layout/Layout";
+import { ChakraBaseProvider, extendTheme } from "@chakra-ui/react";
+import { switchTheme } from "./components/switchTheme";
+
+const theme = extendTheme({
+  components: { Switch: switchTheme },
+});
 
 const App: React.FC = () => {
   return (
-    <>
+    <ChakraBaseProvider theme={theme}>
       <Layout>
         <h1>Page Content</h1>
         <div>
@@ -125,7 +131,7 @@ const App: React.FC = () => {
           </p>
         </div>
       </Layout>
-    </>
+    </ChakraBaseProvider>
   );
 };
 

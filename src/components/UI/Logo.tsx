@@ -5,7 +5,7 @@ const Logo: React.FC = () => {
 
   let style = "flex items-center justify-start gap-3 text-3xl font-bold ";
   if (sidebarActive) {
-    style += "p-6";
+    style += "px-6";
   } else {
     style += "border-r-lines-light border-r-2 px-7 py-5";
   }

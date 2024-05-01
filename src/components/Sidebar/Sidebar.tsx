@@ -1,25 +1,26 @@
 import BoardList from "../Board/BoardList";
+import LightSwitch from "../UI/LightSwitch";
 import Logo from "../UI/Logo";
+import NavButton from "../UI/NavButton";
 
-import { FiSun, FiMoon, FiEyeOff } from "react-icons/fi";
+import { FiEyeOff } from "react-icons/fi";
 
 const Sidebar = () => {
   return (
-    <aside className="flex flex-none basis-80 flex-col items-start justify-between border-r-2 border-r-lines-light bg-white">
+    <aside className="flex flex-none basis-80 flex-col items-start justify-between border-r-2 border-r-lines-light bg-white py-6">
       <nav className="w-full pr-6">
         <Logo />
         <BoardList />
       </nav>
-      <div>
-        <div className="flex items-center justify-center">
-          <FiSun />
-          <button>switch</button>
-          <FiMoon />
+
+      <div className="w-full pr-6">
+        <div className="mb-2 pl-6">
+          <LightSwitch />
         </div>
-        <div className="flex items-center justify-start">
+        <NavButton active={false} textColor="text-medium-gray">
           <FiEyeOff />
           Hide Sidebar
-        </div>
+        </NavButton>
       </div>
     </aside>
   );
