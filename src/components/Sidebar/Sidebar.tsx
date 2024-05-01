@@ -5,9 +5,9 @@ import NavButton from "../UI/NavButton";
 
 import { FiEyeOff } from "react-icons/fi";
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
   return (
-    <aside className="flex flex-none basis-80 flex-col items-start justify-between border-r-2 border-r-lines-light bg-white py-6">
+    <aside className="flex flex-none flex-col items-start justify-between border-r-2 border-r-lines-light bg-white py-6 md:basis-72 lg:basis-80">
       <nav className="w-full pr-6">
         <Logo />
         <BoardList />
