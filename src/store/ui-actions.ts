@@ -8,6 +8,7 @@ export const toggleMobileView = () => {
 
     // Set initial state
     if (checkIsMobile()) {
+      dispatch(uiActions.closeSidebar());
       dispatch(uiActions.setMobileViewOn());
     } else {
       dispatch(uiActions.setMobileViewOff());
@@ -19,6 +20,7 @@ export const toggleMobileView = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         if (checkIsMobile()) {
+          dispatch(uiActions.closeSidebar());
           dispatch(uiActions.setMobileViewOn());
         } else {
           dispatch(uiActions.setMobileViewOff());

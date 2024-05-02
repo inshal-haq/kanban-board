@@ -5,7 +5,7 @@ import kanbanIcon from "../../assets/kanban-fill-purple.svg";
 const Logo: React.FC = () => {
   const sidebarActive = useSelector((state) => state.ui.sidebarActive);
 
-  let style = "flex items-center justify-start gap-3 text-3xl font-bold ";
+  let style = "flex items-center justify-start gap-3 text-3xl font-bold mb-6 ";
 
   if (sidebarActive) {
     style += "px-6";

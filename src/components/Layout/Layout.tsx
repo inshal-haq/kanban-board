@@ -22,7 +22,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
           <main className="flex-1">
             <MainHeader />
             <div
-              className="overflow-y-auto p-4"
+              className="overflow-y-auto bg-light-gray p-4"
               style={{ maxHeight: "calc(100vh - 8rem)" }}
             >
               {props.children}
@@ -34,7 +34,15 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
         <>
           <main className="flex h-screen flex-col">
             <MainHeader />
-            <div className="overflow-y-auto p-4">{props.children}</div>
+            {isMobile && sidebarActive && (
+              <div
+                className="fixed bottom-0 w-full bg-black bg-opacity-60"
+                style={{ height: "calc(100vh - 4.8rem)" }}
+              ></div>
+            )}
+            <div className="overflow-y-auto bg-light-gray p-4">
+              {props.children}
+            </div>
           </main>
           {!isMobile && (
             <h3

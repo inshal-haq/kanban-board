@@ -1,4 +1,5 @@
 const NavButton: React.FC<{
+  onClick?: () => void;
   active: boolean;
   textColor: string;
   children: React.ReactNode;
@@ -12,7 +13,11 @@ const NavButton: React.FC<{
       "hover:bg-main-purple-hover hover:bg-opacity-15 hover:text-main-purple";
   }
 
-  return <h3 className={style}>{props.children}</h3>;
+  return (
+    <h3 className={style} onClick={props.onClick}>
+      {props.children}
+    </h3>
+  );
 };
 
 export default NavButton;

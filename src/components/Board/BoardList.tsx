@@ -7,7 +7,7 @@ const BOARDS = ["Platform Launch", "Marketing Plan", "Roadmap"];
 const BoardList: React.FC = () => {
   return (
     <>
-      <h4 className="mt-6 px-6 py-3 text-medium-gray">
+      <h4 className="px-6 py-3 text-medium-gray">
         ALL BOARDS ({BOARDS.length})
       </h4>
       <ul>
