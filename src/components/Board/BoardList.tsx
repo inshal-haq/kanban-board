@@ -1,8 +1,9 @@
 import NavButton from "../UI/NavButton";
 import BoardItem from "./BoardItem";
 import { FiColumns } from "react-icons/fi";
+import DUMMY_DATA from "../../dummy-data.json";
 
-const BOARDS = ["Platform Launch", "Marketing Plan", "Roadmap"];
+const BOARDS = DUMMY_DATA.boards;
 
 const BoardList: React.FC = () => {
   return (
@@ -11,8 +12,8 @@ const BoardList: React.FC = () => {
         ALL BOARDS ({BOARDS.length})
       </h4>
       <ul>
-        {BOARDS.map((boardTitle, index) => (
-          <BoardItem key={index} title={boardTitle} />
+        {BOARDS.map((board, index) => (
+          <BoardItem key={index} name={board.name} />
         ))}
         <NavButton active={false} textColor="text-main-purple">
           <FiColumns />

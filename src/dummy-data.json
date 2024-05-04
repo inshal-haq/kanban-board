@@ -1,0 +1,55 @@
+{
+  "boards": [
+    {
+      "name": "Platform Launch",
+      "columns": [
+        {
+          "name": "Todo",
+          "tasks": []
+        },
+        {
+          "name": "Doing",
+          "tasks": []
+        },
+        {
+          "name": "Done",
+          "tasks": []
+        }
+      ]
+    },
+    {
+      "name": "Marketing Plan",
+      "columns": [
+        {
+          "name": "Todo",
+          "tasks": []
+        },
+        {
+          "name": "Doing",
+          "tasks": []
+        },
+        {
+          "name": "Done",
+          "tasks": []
+        }
+      ]
+    },
+    {
+      "name": "Roadmap",
+      "columns": [
+        {
+          "name": "Todo",
+          "tasks": []
+        },
+        {
+          "name": "Doing",
+          "tasks": []
+        },
+        {
+          "name": "Done",
+          "tasks": []
+        }
+      ]
+    }
+  ]
+}
