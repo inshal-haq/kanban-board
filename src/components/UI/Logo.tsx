@@ -1,14 +1,14 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../store/hooks";
 
 import kanbanIcon from "../../assets/kanban-fill-purple.svg";
 
 const Logo: React.FC = () => {
-  const sidebarActive = useSelector((state) => state.ui.sidebarActive);
+  const sidebarActive = useAppSelector((state) => state.ui.sidebarActive);
 
-  let style = "flex items-center justify-start gap-3 text-3xl font-bold mb-6 ";
+  let style = "flex items-center justify-start gap-3 text-3xl font-bold ";
 
   if (sidebarActive) {
-    style += "px-6";
+    style += "px-6 mb-6 ";
   } else {
     style += "border-r-lines-light border-r-2 p-6";
   }

@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { uiActions } from "../../store/ui-slice";
 
 import Sidebar from "../Sidebar/Sidebar";
@@ -6,9 +6,9 @@ import MainHeader from "./MainHeader";
 import { FiEye } from "react-icons/fi";
 
 const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
-  const dispatch = useDispatch();
-  const sidebarActive = useSelector((state) => state.ui.sidebarActive);
-  const isMobile = useSelector((state) => state.ui.isMobile);
+  const dispatch = useAppDispatch();
+  const sidebarActive = useAppSelector((state) => state.ui.sidebarActive);
+  const isMobile = useAppSelector((state) => state.ui.isMobile);
 
   const openSidebarHandler = () => {
     dispatch(uiActions.openSidebar());
@@ -19,11 +19,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
       {!isMobile && sidebarActive && (
         <div className="flex h-screen">
           <Sidebar />
-          <main className="flex-1">
+          <main className="relative flex h-screen flex-1 flex-col">
             <MainHeader />
             <div
-              className="overflow-y-auto bg-light-gray p-4"
-              style={{ maxHeight: "calc(100vh - 8rem)" }}
+              className="flex-1 overflow-y-auto bg-light-gray p-4"
+              style={{ maxHeight: "calc(100vh - 5rem)" }}
             >
               {props.children}
             </div>
@@ -40,7 +40,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
                 style={{ height: "calc(100vh - 4.8rem)" }}
               ></div>
             )}
-            <div className="overflow-y-auto bg-light-gray p-4">
+            <div className="flex-1 overflow-y-auto bg-light-gray p-4">
               {props.children}
             </div>
           </main>

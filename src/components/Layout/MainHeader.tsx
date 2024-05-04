@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { uiActions } from "../../store/ui-slice";
 
 import {
@@ -13,9 +13,9 @@ import kanbanIcon from "../../assets/kanban-fill-purple.svg";
 import Sidebar from "../Sidebar/Sidebar";
 
 const MainHeader: React.FC = () => {
-  const dispatch = useDispatch();
-  const sidebarActive = useSelector((state) => state.ui.sidebarActive);
-  const isMobile = useSelector((state) => state.ui.isMobile);
+  const dispatch = useAppDispatch();
+  const sidebarActive = useAppSelector((state) => state.ui.sidebarActive);
+  const isMobile = useAppSelector((state) => state.ui.isMobile);
 
   function toggleSidebarModal() {
     if (sidebarActive) {
@@ -28,13 +28,13 @@ const MainHeader: React.FC = () => {
   return (
     <>
       {!isMobile && (
-        <header className="flex border-b-2 border-b-lines-light bg-white">
+        <header className="flex select-none border-b-2 border-b-lines-light bg-white">
           {!sidebarActive && <Logo />}
           <div className="flex flex-1 items-center justify-between px-7 py-5">
             <div className="text-2xl font-bold leading-8">Platform Launch</div>
             <div className="flex items-center gap-4">
               <Button
-                title="Add New Task"
+                title="+ Add New Task"
                 className="bg-main-purple text-white"
               />
               <FiMoreVertical className="text-2xl text-medium-gray" />
@@ -45,7 +45,7 @@ const MainHeader: React.FC = () => {
       {isMobile && (
         <>
           <Sidebar />
-          <header className="flex flex-1 items-center justify-between bg-white px-7 py-5">
+          <header className="flex select-none items-center justify-between bg-white px-7 py-5">
             <div className="flex items-center gap-4">
               <img src={kanbanIcon} alt="kanban icon" width={36} />
               <div

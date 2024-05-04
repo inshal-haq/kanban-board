@@ -1,6 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { isMobile: false, sidebarActive: false };
+interface uiState {
+  isMobile: boolean;
+  sidebarActive: boolean;
+}
+
+const initialState: uiState = {
+  isMobile: false,
+  sidebarActive: false,
+};
 
 const uiSlice = createSlice({
   name: "ui",

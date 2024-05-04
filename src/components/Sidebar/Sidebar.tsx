@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import BoardList from "../Board/BoardList";
 import LightSwitch from "../UI/LightSwitch";
 import Logo from "../UI/Logo";
@@ -8,9 +8,9 @@ import { FiEyeOff } from "react-icons/fi";
 import { uiActions } from "../../store/ui-slice";
 
 const Sidebar: React.FC = () => {
-  const dispatch = useDispatch();
-  const isMobile = useSelector((state) => state.ui.isMobile);
-  const sidebarActive = useSelector((state) => state.ui.sidebarActive);
+  const dispatch = useAppDispatch();
+  const isMobile = useAppSelector((state) => state.ui.isMobile);
+  const sidebarActive = useAppSelector((state) => state.ui.sidebarActive);
 
   function handleHideSidebar() {
     dispatch(uiActions.closeSidebar());

@@ -1,7 +1,8 @@
+import type { AppDispatch } from "./index";
 import { uiActions } from "./ui-slice";
 
 export const toggleMobileView = () => {
-  return (dispatch) => {
+  return (dispatch: AppDispatch) => {
     const checkIsMobile = () => {
       return window.innerWidth <= 640;
     };
