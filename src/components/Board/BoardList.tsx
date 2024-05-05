@@ -1,5 +1,5 @@
 import NavButton from "../UI/NavButton";
-import BoardItem from "./BoardItem";
+import BoardName from "./BoardName";
 import { FiColumns } from "react-icons/fi";
 import DUMMY_DATA from "../../dummy-data.json";
 
@@ -13,7 +13,7 @@ const BoardList: React.FC = () => {
       </h4>
       <ul>
         {BOARDS.map((board, index) => (
-          <BoardItem key={index} name={board.name} />
+          <BoardName key={index} name={board.name} />
         ))}
         <NavButton active={false} textColor="text-main-purple">
           <FiColumns />

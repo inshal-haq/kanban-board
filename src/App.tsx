@@ -3,7 +3,7 @@ import { useAppDispatch } from "./store/hooks";
 import { toggleMobileView } from "./store/ui-actions";
 
 import Layout from "./components/Layout/Layout";
-import Board from "./components/Board/Board";
+import BoardItem from "./components/Board/BoardItem";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ const App: React.FC = () => {
 
   return (
     <Layout>
-      <Board />
+      <BoardItem />
     </Layout>
   );
 };

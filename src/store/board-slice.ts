@@ -1,14 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import Board from "../models/board";
 
 import DUMMY_DATA from "../dummy-data.json";
 
 interface boardState {
-  activeBoardName: string; // will be treated as unique id
+  activeBoardName: string;
+  boards: Board[];
 }
 
 const initialState: boardState = {
   activeBoardName: DUMMY_DATA.boards[0].name || "",
+  boards: [],
 };
 
 const boardSlice = createSlice({
@@ -17,6 +20,11 @@ const boardSlice = createSlice({
   reducers: {
     setActiveBoard(state, action: PayloadAction<string>) {
       state.activeBoardName = action.payload;
+    },
+    addBoard(state, action) {
+      const { name, columns } = action.payload;
+      const newBoard = new Board(name, columns);
+      state.boards.push(newBoard);
     },
   },
 });

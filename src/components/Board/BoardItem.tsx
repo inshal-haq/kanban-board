@@ -1,29 +1,27 @@
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { boardActions } from "../../store/board-slice";
+import Button from "../UI/Button";
+import DUMMY_DATA from "../../dummy-data.json";
+import ColumnList from "../Column/ColumnList";
 
-import { FiColumns } from "react-icons/fi";
-import NavButton from "../UI/NavButton";
+const BOARDS = DUMMY_DATA.boards;
 
-const BoardItem: React.FC<{ name: string }> = (props) => {
-  const dispatch = useAppDispatch();
-  const activeBoardName = useAppSelector(
-    (state) => state.board.activeBoardName,
-  );
-  const isActive = props.name === activeBoardName;
-
-  const handleBoardSelect = () => {
-    dispatch(boardActions.setActiveBoard(props.name));
-  };
+const BoardItem: React.FC = () => {
+  const isBoardEmpty = BOARDS.length === 0;
 
   return (
-    <NavButton
-      active={isActive}
-      textColor={isActive ? "text-white" : "text-medium-gray"}
-      onClick={handleBoardSelect}
-    >
-      <FiColumns />
-      <div>{props.name}</div>
-    </NavButton>
+    <>
+      {isBoardEmpty && (
+        <div className="mt-80 flex flex-col items-center justify-center gap-8">
+          <h2 className="text-center text-medium-gray">
+            The board is empty. Create a new column to get started.
+          </h2>
+          <Button
+            title="+ Add New Column"
+            className="bg-main-purple text-white"
+          />
+        </div>
+      )}
+      {!isBoardEmpty && <ColumnList />}
+    </>
   );
 };
 
