@@ -19,8 +19,8 @@ const Sidebar: React.FC = () => {
   return (
     <>
       {!isMobile && (
-        <aside className="flex flex-none flex-col items-start justify-between border-r-2 border-r-lines-light bg-white py-6 md:basis-72 lg:basis-80">
-          <nav className="w-full pr-6">
+        <aside className="flex h-full flex-col border-r-2 border-r-lines-light bg-white py-6">
+          <nav className="mb-auto w-full pr-6">
             <Logo />
             <BoardList />
           </nav>

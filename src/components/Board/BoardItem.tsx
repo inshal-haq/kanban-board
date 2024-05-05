@@ -1,11 +1,18 @@
+import { useAppSelector } from "../../store/hooks";
+
 import Button from "../UI/Button";
-import DUMMY_DATA from "../../dummy-data.json";
 import ColumnList from "../Column/ColumnList";
+
+import DUMMY_DATA from "../../dummy-data.json";
 
 const BOARDS = DUMMY_DATA.boards;
 
 const BoardItem: React.FC = () => {
   const isBoardEmpty = BOARDS.length === 0;
+
+  const activeBoardId = useAppSelector((state) => state.board.activeBoardId);
+  const index = BOARDS.findIndex((board) => board.id === activeBoardId);
+  const columns = BOARDS[index].columns;
 
   return (
     <>
@@ -20,7 +27,7 @@ const BoardItem: React.FC = () => {
           />
         </div>
       )}
-      {!isBoardEmpty && <ColumnList />}
+      {!isBoardEmpty && <ColumnList columns={columns} />}
     </>
   );
 };

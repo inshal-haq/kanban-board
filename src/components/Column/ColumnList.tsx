@@ -1,24 +1,14 @@
-import { useAppSelector } from "../../store/hooks";
-import Column from "./Column";
+import ColumnItem from "./ColumnItem";
+import Column from "../../models/column";
 
-import DUMMY_DATA from "../../dummy-data.json";
-const BOARDS = DUMMY_DATA.boards;
-
-const ColumnList: React.FC = () => {
-  const activeBoardName = useAppSelector(
-    (state) => state.board.activeBoardName,
-  );
-  const index = BOARDS.findIndex((board) => board.name === activeBoardName);
-  const columns = BOARDS[index].columns;
-
+const ColumnList: React.FC<{ columns: Column[] }> = (props) => {
   return (
-    <div>
-      <ul>
-        {columns.map((column) => (
-          <Column key={column.name} />
-        ))}
-      </ul>
-    </div>
+    <ul className="flex gap-6">
+      {props.columns.map((column) => (
+        <ColumnItem key={column.id} column={column} />
+      ))}
+      <div className="w-[280px] bg-medium-gray">+ New Column</div>
+    </ul>
   );
 };
 

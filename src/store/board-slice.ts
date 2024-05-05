@@ -5,12 +5,12 @@ import Board from "../models/board";
 import DUMMY_DATA from "../dummy-data.json";
 
 interface boardState {
-  activeBoardName: string;
+  activeBoardId: string;
   boards: Board[];
 }
 
 const initialState: boardState = {
-  activeBoardName: DUMMY_DATA.boards[0].name || "",
+  activeBoardId: DUMMY_DATA.boards[0].id || "",
   boards: [],
 };
 
@@ -19,7 +19,7 @@ const boardSlice = createSlice({
   initialState,
   reducers: {
     setActiveBoard(state, action: PayloadAction<string>) {
-      state.activeBoardName = action.payload;
+      state.activeBoardId = action.payload;
     },
     addBoard(state, action) {
       const { name, columns } = action.payload;

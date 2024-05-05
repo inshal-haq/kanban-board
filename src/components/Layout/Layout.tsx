@@ -17,30 +17,47 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
   return (
     <>
       {!isMobile && sidebarActive && (
-        <div className="flex h-screen">
-          <Sidebar />
-          <main className="relative flex h-screen flex-1 flex-col">
+        <div className="flex">
+          <div className="fixed top-0 z-10 h-[86px] w-full bg-white pl-[260px] lg:pl-[300px]">
             <MainHeader />
-            <div
-              className="flex-1 overflow-y-auto bg-light-gray p-4"
-              style={{ maxHeight: "calc(100vh - 5rem)" }}
-            >
-              {props.children}
-            </div>
+          </div>
+          <div className="fixed left-0 top-0 z-10 h-full w-[260px] lg:w-[300px]">
+            <Sidebar />
+          </div>
+          <main className="flex overflow-auto bg-light-gray pb-[24px] pl-[284px] pr-[24px] pt-[110px] lg:pl-[324px]">
+            {props.children}
           </main>
         </div>
+        // <div className="flex">
+        //   <Sidebar />
+        //   <main className="flex flex-1 flex-col overflow-auto">
+        //     <MainHeader />
+        //     <div
+        //       className="flex-1 bg-light-gray p-4"
+        //       style={{
+        //         maxHeight: "calc(100vh - 86px)",
+        //       }}
+        //     >
+        //       {props.children}
+        //     </div>
+        //   </main>
+        // </div>
       )}
       {(isMobile || !sidebarActive) && (
         <>
-          <main className="flex h-screen flex-col">
-            <MainHeader />
+          <main
+            className={`flex flex-col ${isMobile && sidebarActive && "h-screen"}`}
+          >
+            <div className="fixed top-0 z-10 h-[86px] w-full bg-white">
+              <MainHeader />
+            </div>
             {isMobile && sidebarActive && (
               <div
                 className="fixed bottom-0 w-full bg-black bg-opacity-60"
-                style={{ height: "calc(100vh - 4.8rem)" }}
+                style={{ height: "calc(100vh - 86px)" }}
               ></div>
             )}
-            <div className="flex-1 overflow-y-auto bg-light-gray p-4">
+            <div className="flex overflow-y-auto bg-light-gray p-6 pt-[110px]">
               {props.children}
             </div>
           </main>
