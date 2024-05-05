@@ -7,7 +7,9 @@ const ColumnList: React.FC<{ columns: Column[] }> = (props) => {
       {props.columns.map((column) => (
         <ColumnItem key={column.id} column={column} />
       ))}
-      <div className="w-[280px] bg-medium-gray">+ New Column</div>
+      <h1 className="mt-8 flex w-[280px] items-center justify-center rounded-lg bg-[#E9EFFA] text-medium-gray">
+        + New Column
+      </h1>
     </ul>
   );
 };

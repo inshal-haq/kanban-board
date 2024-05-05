@@ -3,7 +3,7 @@ import Task from "../../models/task";
 
 const TaskList: React.FC<{ tasks: Task[] }> = (props) => {
   return (
-    <ul>
+    <ul className="flex flex-col gap-5">
       {props.tasks.map((task) => (
         <TaskItem key={task.id} task={task} />
       ))}

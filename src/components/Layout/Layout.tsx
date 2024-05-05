@@ -13,11 +13,14 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
   const openSidebarHandler = () => {
     dispatch(uiActions.openSidebar());
   };
+  const closeSidebarHandler = () => {
+    dispatch(uiActions.closeSidebar());
+  };
 
   return (
     <>
       {!isMobile && sidebarActive && (
-        <div className="flex">
+        <div className="flex min-h-screen">
           <div className="fixed top-0 z-10 h-[86px] w-full bg-white pl-[260px] lg:pl-[300px]">
             <MainHeader />
           </div>
@@ -55,9 +58,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
               <div
                 className="fixed bottom-0 w-full bg-black bg-opacity-60"
                 style={{ height: "calc(100vh - 86px)" }}
+                onClick={closeSidebarHandler}
               ></div>
             )}
-            <div className="flex overflow-y-auto bg-light-gray p-6 pt-[110px]">
+            <div className="flex min-h-screen overflow-auto bg-light-gray p-6 pt-[110px]">
               {props.children}
             </div>
           </main>
