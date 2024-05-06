@@ -15,11 +15,16 @@ html {
 /* Font - Body L */
 body {
   background-color: #f4f7fd;
-  font-weight: medium;
+  font-weight: 500;
   font-size: 13px;
   line-height: 23px;
 }
-
+/* Body M */
+p {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+}
 /* XL */
 h1 {
   font-weight: bold;
@@ -44,10 +49,4 @@ h4 {
   font-size: 12px;
   line-height: 15px;
   letter-spacing: 2.4px;
-}
-/* Body M */
-p {
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 15px;
 }
