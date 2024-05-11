@@ -1,12 +1,14 @@
-import { forwardRef } from "react";
-
-import Modal from "../UI/Modal";
 import Task from "../../models/task";
-import { FiMoreVertical } from "react-icons/fi";
 import SubtaskCheckbox from "./SubtaskCheckbox";
-import TextField from "../UI/TextField";
+import DialogModal from "../UI/DialogModal";
+import StatusDropdown from "./StatusDropdown";
+import TaskOptionsDropdown from "./TaskOptionsDropdown";
 
-const ViewTask: React.FC<{ task: Task }> = forwardRef((props, ref) => {
+const ViewTaskModal: React.FC<{
+  task: Task;
+  open: boolean;
+  setOpen: (state: boolean) => void;
+}> = (props) => {
   const { title, description, status, subtasks } = props.task;
 
   const numOfCompletedSubtasks = subtasks.filter(
@@ -14,12 +16,10 @@ const ViewTask: React.FC<{ task: Task }> = forwardRef((props, ref) => {
   ).length;
 
   return (
-    <Modal ref={ref}>
+    <DialogModal open={props.open} setOpen={props.setOpen}>
       <div className="flex items-center justify-between gap-6">
         <h2>{title}</h2>
-        <h2>
-          <FiMoreVertical className="text-medium-gray" />
-        </h2>
+        <TaskOptionsDropdown />
       </div>
       <div className="text-medium-gray">{description}</div>
       <fieldset className="text-medium-gray">
@@ -34,10 +34,10 @@ const ViewTask: React.FC<{ task: Task }> = forwardRef((props, ref) => {
       </fieldset>
       <label className="text-medium-gray">
         <p className="mb-4">Current Status</p>
-        <TextField />
+        <StatusDropdown initialStatus={status} />
       </label>
-    </Modal>
+    </DialogModal>
   );
-});
+};
 
-export default ViewTask;
+export default ViewTaskModal;

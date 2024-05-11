@@ -1,14 +1,14 @@
-import { useRef } from "react";
+import { useState } from "react";
 import Task from "../../models/task";
-import ViewTask from "./ViewTask";
+import ViewTaskModal from "./ViewTaskModal";
 
 const TaskItem: React.FC<{ task: Task }> = (props) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
   const { title, description, status, subtasks } = props.task;
 
-  const viewTaskModal = useRef<HTMLDialogElement>(null);
-
   const handleOpenModal = () => {
-    viewTaskModal.current?.open();
+    setModalOpen(true);
   };
 
   const numOfCompletedSubtasks = subtasks.filter(
@@ -17,9 +17,13 @@ const TaskItem: React.FC<{ task: Task }> = (props) => {
 
   return (
     <>
-      <ViewTask ref={viewTaskModal} task={props.task} />
+      <ViewTaskModal
+        task={props.task}
+        open={isModalOpen}
+        setOpen={setModalOpen}
+      />
       <div
-        className="item flex w-[280px] flex-col justify-center gap-2 rounded-lg bg-white px-4 py-6 shadow-md"
+        className="item flex w-[280px] cursor-pointer flex-col justify-center gap-2 rounded-lg bg-white px-4 py-6 shadow-md"
         onClick={handleOpenModal}
       >
         <h3>{title}</h3>
