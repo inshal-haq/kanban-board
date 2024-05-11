@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { uiActions } from "../../store/ui-slice";
 
@@ -11,8 +12,14 @@ import Button from "../UI/Button";
 import Logo from "../UI/Logo";
 import kanbanIcon from "../../assets/kanban-fill-purple.svg";
 import Sidebar from "../Sidebar/Sidebar";
+import AddTaskModal from "../Task/AddTaskModal";
 
 const MainHeader: React.FC = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
   const dispatch = useAppDispatch();
   const sidebarActive = useAppSelector((state) => state.ui.sidebarActive);
   const isMobile = useAppSelector((state) => state.ui.isMobile);
@@ -27,6 +34,7 @@ const MainHeader: React.FC = () => {
 
   return (
     <>
+      <AddTaskModal open={isModalOpen} setOpen={setModalOpen} />
       {!isMobile && (
         <header className="flex select-none border-b-2 border-b-lines-light bg-white">
           {!sidebarActive && <Logo />}
@@ -35,7 +43,8 @@ const MainHeader: React.FC = () => {
             <div className="flex items-center gap-4">
               <Button
                 title="+ Add New Task"
-                className="bg-main-purple text-white"
+                className="bg-main-purple text-white hover:bg-main-purple-hover"
+                onClick={handleOpenModal}
               />
               <FiMoreVertical className="text-2xl text-medium-gray" />
             </div>
@@ -63,7 +72,10 @@ const MainHeader: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <button className="rounded-full bg-main-purple px-4 py-2 text-xl font-bold text-white">
+              <button
+                className="cursor-pointer rounded-full bg-main-purple px-4 py-2 text-xl font-bold text-white hover:bg-main-purple-hover"
+                onClick={handleOpenModal}
+              >
                 <FiPlus />
               </button>
               <FiMoreVertical className="text-2xl text-medium-gray" />

@@ -3,10 +3,9 @@ import Task from "../../models/task";
 import ViewTaskModal from "./ViewTaskModal";
 
 const TaskItem: React.FC<{ task: Task }> = (props) => {
-  const [isModalOpen, setModalOpen] = useState(false);
-
   const { title, description, status, subtasks } = props.task;
 
+  const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = () => {
     setModalOpen(true);
   };
