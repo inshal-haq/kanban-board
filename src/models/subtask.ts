@@ -3,10 +3,10 @@ class Subtask {
   title: string;
   isCompleted: boolean;
 
-  constructor(title: string, isCompleted: boolean) {
+  constructor(title: string) {
     this.id = new Date().toISOString();
     this.title = title;
-    this.isCompleted = isCompleted;
+    this.isCompleted = false;
   }
 }
 
