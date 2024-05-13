@@ -2,16 +2,14 @@ import { Dialog } from "@mui/material";
 
 const DialogModal: React.FC<{
   open: boolean;
-  setOpen: (state: boolean) => void;
+  onClose: () => void;
   children: React.ReactNode;
 }> = (props) => {
-  const handleClose = () => {
-    props.setOpen(false);
-  };
+  const { open, onClose, children } = props;
 
   return (
-    <Dialog open={props.open} onClose={handleClose} fullWidth maxWidth="xs">
-      <div className="flex flex-col gap-6 p-8">{props.children}</div>
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
+      <div className="flex flex-col gap-6 p-8">{children}</div>
     </Dialog>
   );
 };

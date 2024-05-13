@@ -12,12 +12,15 @@ import Button from "../UI/Button";
 import Logo from "../UI/Logo";
 import kanbanIcon from "../../assets/kanban-fill-purple.svg";
 import Sidebar from "../Sidebar/Sidebar";
-import AddTaskModal from "../Task/AddTaskModal";
+import TaskFormModal from "../Task/TaskFormModal";
 
 const MainHeader: React.FC = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const handleOpenModal = () => {
-    setModalOpen(true);
+  const [isNewTaskModalOpen, setNewTaskModalOpen] = useState(false);
+  const handleOpenNewTaskModal = () => {
+    setNewTaskModalOpen(true);
+  };
+  const handleCloseNewTaskModal = () => {
+    setNewTaskModalOpen(false);
   };
 
   const dispatch = useAppDispatch();
@@ -34,7 +37,10 @@ const MainHeader: React.FC = () => {
 
   return (
     <>
-      <AddTaskModal open={isModalOpen} setOpen={setModalOpen} />
+      <TaskFormModal
+        open={isNewTaskModalOpen}
+        onClose={handleCloseNewTaskModal}
+      />
       {!isMobile && (
         <header className="flex select-none border-b-2 border-b-lines-light bg-white">
           {!sidebarActive && <Logo />}
@@ -44,7 +50,7 @@ const MainHeader: React.FC = () => {
               <Button
                 title="+ Add New Task"
                 className="bg-main-purple text-white hover:bg-main-purple-hover"
-                onClick={handleOpenModal}
+                onClick={handleOpenNewTaskModal}
               />
               <FiMoreVertical className="text-2xl text-medium-gray" />
             </div>
@@ -74,7 +80,7 @@ const MainHeader: React.FC = () => {
             <div className="flex items-center gap-2">
               <button
                 className="cursor-pointer rounded-full bg-main-purple px-4 py-2 text-xl font-bold text-white hover:bg-main-purple-hover"
-                onClick={handleOpenModal}
+                onClick={handleOpenNewTaskModal}
               >
                 <FiPlus />
               </button>

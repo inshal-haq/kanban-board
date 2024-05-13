@@ -7,19 +7,20 @@ import TaskOptionsDropdown from "./TaskOptionsDropdown";
 const ViewTaskModal: React.FC<{
   task: Task;
   open: boolean;
-  setOpen: (state: boolean) => void;
+  onClose: () => void;
 }> = (props) => {
-  const { title, description, status, subtasks } = props.task;
+  const { task, open, onClose } = props;
+  const { title, description, status, subtasks } = task;
 
   const numOfCompletedSubtasks = subtasks.filter(
     (subtask) => subtask.isCompleted,
   ).length;
 
   return (
-    <DialogModal open={props.open} setOpen={props.setOpen}>
+    <DialogModal open={open} onClose={onClose}>
       <div className="flex items-center justify-between gap-6">
         <h2>{title}</h2>
-        <TaskOptionsDropdown />
+        <TaskOptionsDropdown task={props.task} onViewTaskModalClose={onClose} />
       </div>
       <div className="text-medium-gray">{description}</div>
       <fieldset className="text-medium-gray">

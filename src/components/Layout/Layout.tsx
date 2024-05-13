@@ -31,20 +31,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
             {props.children}
           </main>
         </div>
-        // <div className="flex">
-        //   <Sidebar />
-        //   <main className="flex flex-1 flex-col overflow-auto">
-        //     <MainHeader />
-        //     <div
-        //       className="flex-1 bg-light-gray p-4"
-        //       style={{
-        //         maxHeight: "calc(100vh - 86px)",
-        //       }}
-        //     >
-        //       {props.children}
-        //     </div>
-        //   </main>
-        // </div>
       )}
       {(isMobile || !sidebarActive) && (
         <>

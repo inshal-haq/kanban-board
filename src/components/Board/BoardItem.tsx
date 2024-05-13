@@ -24,6 +24,9 @@ const BoardItem: React.FC = () => {
           <Button
             title="+ Add New Column"
             className="bg-main-purple text-white"
+            onClick={() => {
+              console.log("todo");
+            }}
           />
         </div>
       )}

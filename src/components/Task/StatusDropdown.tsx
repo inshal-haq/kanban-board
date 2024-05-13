@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { createPortal } from "react-dom";
 
-const StatusDropdown: React.FC<{ initialStatus?: string }> = (props) => {
+const StatusDropdown: React.FC<{
+  initialStatus?: string;
+}> = (props) => {
   const [open, setOpen] = useState(false);
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
@@ -19,10 +21,21 @@ const StatusDropdown: React.FC<{ initialStatus?: string }> = (props) => {
     setTop(event.currentTarget.getBoundingClientRect().top);
   };
 
-  const handleOptionSelect = (option) => {
+  const handleOptionSelect = (option: string) => {
     setOpen(false);
     setStatus(option);
   };
+
+  const portalModalContainer = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    portalModalContainer.current = document.querySelector(
+      ".MuiDialog-container",
+    );
+
+    if (!portalModalContainer) {
+      throw new Error("Portal modal container element not found in the DOM.");
+    }
+  }, []);
 
   return (
     <>
@@ -44,8 +57,9 @@ const StatusDropdown: React.FC<{ initialStatus?: string }> = (props) => {
             className={`absolute flex flex-col gap-2 rounded-lg bg-white p-4 text-medium-gray`}
             style={{ width: `${width}px`, top: top + height + 10 }}
           >
-            {options.map((option) => (
+            {options.map((option, index) => (
               <div
+                key={index}
                 className="cursor-pointer"
                 onClick={() => handleOptionSelect(option)}
               >
@@ -53,7 +67,7 @@ const StatusDropdown: React.FC<{ initialStatus?: string }> = (props) => {
               </div>
             ))}
           </div>,
-          document.querySelector(".MuiDialog-container"),
+          portalModalContainer.current || document.body,
         )}
     </>
   );

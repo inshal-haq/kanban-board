@@ -1,23 +1,30 @@
 import Subtask from "../../models/subtask";
+import Task from "../../models/task";
 
 import DialogModal from "../UI/DialogModal";
-import TextField from "../UI//TextField";
+import TextField from "../UI/TextField";
 import { useInput } from "../../hooks/useInput";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../UI/Button";
 import { FiX } from "react-icons/fi";
 import StatusDropdown from "./StatusDropdown";
 
-const AddTaskModal: React.FC<{
+const TaskFormModal: React.FC<{
   open: boolean;
-  setOpen: (state: boolean) => void;
+  onClose: () => void;
+  task?: Task;
 }> = (props) => {
+  const { open, onClose, task } = props;
+
   const isNotEmpty = (value: string) => value.trim() !== "";
 
   const initialSubtasks = [new Subtask(""), new Subtask("")];
-  const [subtasks, setSubtasks] = useState(initialSubtasks);
+  const [subtasks, setSubtasks] = useState(task?.subtasks ?? initialSubtasks);
   const [didEdits, setDidEdits] = useState([false, false]);
-  const handleSubtaskChange = (event, index) => {
+  const handleSubtaskChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    index: number,
+  ) => {
     const newSubtasks = [...subtasks];
     newSubtasks[index] = {
       ...newSubtasks[index],
@@ -30,16 +37,16 @@ const AddTaskModal: React.FC<{
     setSubtasks(newSubtasks);
     setDidEdits(newDidEdits);
   };
-  const handleSubtaskBlur = (e, index) => {
+  const handleSubtaskBlur = (index: number) => {
     const newDidEdits = [...didEdits];
     newDidEdits[index] = true;
     setDidEdits(newDidEdits);
   };
 
-  const subtaskHasError = (index) =>
+  const subtaskHasError = (index: number) =>
     didEdits[index] && !isNotEmpty(subtasks[index].title);
 
-  const subtaskPlaceholder = (index) => {
+  const subtaskPlaceholder = (index: number) => {
     let placeholder = "";
     switch ((index + 1) % 5) {
       case 1:
@@ -70,13 +77,13 @@ const AddTaskModal: React.FC<{
     handleInputChange: handleTitleChange,
     handleInputBlur: handleTitleBlur,
     hasError: titleHasError,
-  } = useInput("", isNotEmpty);
+  } = useInput(task?.title ?? "", isNotEmpty);
   const {
     value: descriptionValue,
     handleInputChange: handleDescriptionChange,
     handleInputBlur: handleDescriptionBlur,
     hasError: descriptionHasError,
-  } = useInput("", isNotEmpty);
+  } = useInput(task?.description ?? "", isNotEmpty);
 
   const handleAddSubtask = () => {
     const newSubtasks = [...subtasks];
@@ -92,7 +99,7 @@ const AddTaskModal: React.FC<{
     console.log(didEdits);
   };
 
-  const handleRemoveSubtask = (id, index) => {
+  const handleRemoveSubtask = (id: string, index: number) => {
     const filteredSubtasks = subtasks.filter((subtask) => subtask.id !== id);
 
     const filteredEdits = didEdits.splice(index, 1);
@@ -102,8 +109,8 @@ const AddTaskModal: React.FC<{
   };
 
   return (
-    <DialogModal open={props.open} setOpen={props.setOpen}>
-      <h2>Add New Task</h2>
+    <DialogModal open={open} onClose={onClose}>
+      <h2>{task ? "Edit" : "Add New"} Task</h2>
       <label className="text-medium-gray">
         <p className="mb-2">Title</p>
         <TextField
@@ -143,8 +150,8 @@ const AddTaskModal: React.FC<{
                   name="subtasks"
                   placeholder={subtaskPlaceholder(index)}
                   value={title}
-                  onChange={(e) => handleSubtaskChange(e, index)}
-                  onBlur={(e) => handleSubtaskBlur(e, index)}
+                  onChange={(event) => handleSubtaskChange(event, index)}
+                  onBlur={() => handleSubtaskBlur(index)}
                   error={subtaskHasError(index)}
                 />
                 <FiX
@@ -161,12 +168,14 @@ const AddTaskModal: React.FC<{
         className="flex justify-center bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25"
         onClick={handleAddSubtask}
       />
-      <label className="text-medium-gray">
-        <p className="mb-2">Status</p>
-        <StatusDropdown />
-      </label>
+      {!task && (
+        <label className="text-medium-gray">
+          <p className="mb-2">Status</p>
+          <StatusDropdown />
+        </label>
+      )}
       <Button
-        title="Create Subtask"
+        title={task ? "Save Changes" : "Create Subtask"}
         className="flex justify-center bg-main-purple text-white hover:bg-main-purple-hover"
         onClick={handleAddSubtask}
       />
@@ -174,4 +183,4 @@ const AddTaskModal: React.FC<{
   );
 };
 
-export default AddTaskModal;
+export default TaskFormModal;
