@@ -20,7 +20,7 @@ const ViewTaskModal: React.FC<{
     <DialogModal open={open} onClose={onClose}>
       <div className="flex items-center justify-between gap-6">
         <h2>{title}</h2>
-        <TaskOptionsDropdown task={props.task} onViewTaskModalClose={onClose} />
+        <TaskOptionsDropdown task={props.task} />
       </div>
       <div className="text-medium-gray">{description}</div>
       <fieldset className="text-medium-gray">

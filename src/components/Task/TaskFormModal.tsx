@@ -64,10 +64,6 @@ const TaskFormModal: React.FC<{
       case 0:
         placeholder = "e.g. Legs up, comfy sofa, lax life";
         break;
-
-      default:
-        placeholder = "e.g. Take coffee break";
-        break;
     }
     return placeholder;
   };
@@ -94,9 +90,6 @@ const TaskFormModal: React.FC<{
 
     setSubtasks(newSubtasks);
     setDidEdits(newDidEdits);
-
-    console.log(subtasks);
-    console.log(didEdits);
   };
 
   const handleRemoveSubtask = (id: string, index: number) => {
@@ -175,9 +168,9 @@ const TaskFormModal: React.FC<{
         </label>
       )}
       <Button
-        title={task ? "Save Changes" : "Create Subtask"}
+        title={task ? "Save Changes" : "Create Task"}
         className="flex justify-center bg-main-purple text-white hover:bg-main-purple-hover"
-        onClick={handleAddSubtask}
+        onClick={() => console.log("todo")}
       />
     </DialogModal>
   );

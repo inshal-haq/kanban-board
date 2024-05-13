@@ -5,10 +5,7 @@ import { createPortal } from "react-dom";
 import Task from "../../models/task";
 import TaskFormModal from "./TaskFormModal";
 
-const TaskOptionsDropdown: React.FC<{
-  task: Task;
-  onViewTaskModalClose: () => void;
-}> = (props) => {
+const TaskOptionsDropdown: React.FC<{ task: Task }> = (props) => {
   const [open, setOpen] = useState(false);
   const [height, setHeight] = useState<number>(0);
   const [top, setTop] = useState<number>(0);

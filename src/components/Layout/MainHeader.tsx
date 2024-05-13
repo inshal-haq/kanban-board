@@ -2,19 +2,22 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { uiActions } from "../../store/ui-slice";
 
-import {
-  FiMoreVertical,
-  FiChevronDown,
-  FiChevronUp,
-  FiPlus,
-} from "react-icons/fi";
+import { FiChevronDown, FiChevronUp, FiPlus } from "react-icons/fi";
 import Button from "../UI/Button";
 import Logo from "../UI/Logo";
 import kanbanIcon from "../../assets/kanban-fill-purple.svg";
 import Sidebar from "../Sidebar/Sidebar";
 import TaskFormModal from "../Task/TaskFormModal";
+import BoardOptionsDropdown from "../Board/BoardOptionsDropdown";
+
+import DUMMY_DATA from "../../dummy-data.json";
+
+const BOARDS = DUMMY_DATA.boards;
 
 const MainHeader: React.FC = () => {
+  const activeBoardId = useAppSelector((state) => state.board.activeBoardId);
+  const board = BOARDS.find((board) => board.id === activeBoardId);
+
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState(false);
   const handleOpenNewTaskModal = () => {
     setNewTaskModalOpen(true);
@@ -52,7 +55,7 @@ const MainHeader: React.FC = () => {
                 className="bg-main-purple text-white hover:bg-main-purple-hover"
                 onClick={handleOpenNewTaskModal}
               />
-              <FiMoreVertical className="text-2xl text-medium-gray" />
+              <BoardOptionsDropdown board={board!} />
             </div>
           </div>
         </header>
@@ -84,7 +87,7 @@ const MainHeader: React.FC = () => {
               >
                 <FiPlus />
               </button>
-              <FiMoreVertical className="text-2xl text-medium-gray" />
+              <BoardOptionsDropdown board={board!} />
             </div>
           </header>
         </>
