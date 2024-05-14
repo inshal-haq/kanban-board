@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 
 import Task from "../../models/task";
 import TaskFormModal from "./TaskFormModal";
+import DeleteTaskModal from "./DeleteTaskModal";
 
 const TaskOptionsDropdown: React.FC<{ task: Task }> = (props) => {
   const [open, setOpen] = useState(false);
@@ -20,15 +21,20 @@ const TaskOptionsDropdown: React.FC<{ task: Task }> = (props) => {
     setEditModalOpen(false);
   };
 
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const handleOpenDeleteModal = () => {
+    setOpen(false);
+    setDeleteModalOpen(true);
+  };
+  const handleCloseDeleteModal = () => {
+    setDeleteModalOpen(false);
+  };
+
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setOpen((prevState) => !prevState);
     setHeight(event.currentTarget.clientHeight);
     setTop(event.currentTarget.getBoundingClientRect().top);
     setLeft(event.currentTarget.getBoundingClientRect().left);
-  };
-
-  const handleDelete = () => {
-    setOpen(false);
   };
 
   const portalModalContainer = useRef<HTMLElement | null>(null);
@@ -49,6 +55,11 @@ const TaskOptionsDropdown: React.FC<{ task: Task }> = (props) => {
         onClose={handleCloseEditModal}
         task={props.task}
       />
+      <DeleteTaskModal
+        open={isDeleteModalOpen}
+        onClose={handleCloseDeleteModal}
+        taskTitle={props.task.title}
+      />
       <h2 className="cursor-pointer" onClick={handleClick}>
         <FiMoreVertical className="text-medium-gray" />
       </h2>
@@ -61,7 +72,10 @@ const TaskOptionsDropdown: React.FC<{ task: Task }> = (props) => {
             <div className="cursor-pointer" onClick={handleOpenEditModal}>
               Edit Task
             </div>
-            <div className="cursor-pointer text-red" onClick={handleDelete}>
+            <div
+              className="cursor-pointer text-red"
+              onClick={handleOpenDeleteModal}
+            >
               Delete Task
             </div>
           </div>,

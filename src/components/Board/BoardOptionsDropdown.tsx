@@ -3,6 +3,7 @@ import { FiMoreVertical } from "react-icons/fi";
 
 import Board from "../../models/board";
 import BoardFormModal from "./BoardFormModal";
+import DeleteBoardModal from "./DeleteBoardModal";
 
 const BoardOptionsDropdown: React.FC<{ board: Board }> = (props) => {
   const [open, setOpen] = useState(false);
@@ -19,15 +20,20 @@ const BoardOptionsDropdown: React.FC<{ board: Board }> = (props) => {
     setEditBoardModalOpen(false);
   };
 
+  const [isDeleteBoardModalOpen, setDeleteBoardModalOpen] = useState(false);
+  const handleOpenDeleteBoardModal = () => {
+    setOpen(false);
+    setDeleteBoardModalOpen(true);
+  };
+  const handleCloseDeleteBoardModal = () => {
+    setDeleteBoardModalOpen(false);
+  };
+
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setOpen((prevState) => !prevState);
     setHeight(event.currentTarget.clientHeight);
     setTop(event.currentTarget.getBoundingClientRect().top);
     setLeft(event.currentTarget.getBoundingClientRect().left);
-  };
-
-  const handleDelete = () => {
-    setOpen(false);
   };
 
   return (
@@ -36,6 +42,11 @@ const BoardOptionsDropdown: React.FC<{ board: Board }> = (props) => {
         open={isEditBoardModalOpen}
         onClose={handleCloseEditBoardModal}
         board={props.board}
+      />
+      <DeleteBoardModal
+        open={isDeleteBoardModalOpen}
+        onClose={handleCloseDeleteBoardModal}
+        boardName={props.board.name}
       />
       <h2 className="cursor-pointer" onClick={handleClick}>
         <FiMoreVertical className="text-2xl text-medium-gray" />
@@ -48,7 +59,10 @@ const BoardOptionsDropdown: React.FC<{ board: Board }> = (props) => {
           <div className="cursor-pointer" onClick={handleOpenEditBoardModal}>
             Edit Board
           </div>
-          <div className="cursor-pointer text-red" onClick={handleDelete}>
+          <div
+            className="cursor-pointer text-red"
+            onClick={handleOpenDeleteBoardModal}
+          >
             Delete Board
           </div>
         </div>
