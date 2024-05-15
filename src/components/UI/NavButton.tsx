@@ -10,7 +10,7 @@ const NavButton: React.FC<{
     style += "bg-main-purple";
   } else {
     style +=
-      "hover:bg-main-purple-hover hover:bg-opacity-15 hover:text-main-purple";
+      "hover:bg-main-purple-hover dark:hover:bg-white dark:hover:bg-opacity-100 hover:bg-opacity-15 hover:text-main-purple";
   }
 
   return (

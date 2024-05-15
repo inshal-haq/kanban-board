@@ -39,9 +39,12 @@ const StatusDropdown: React.FC<{
 
   return (
     <>
-      <div className="w-full select-none bg-white" onClick={handleClick}>
+      <div
+        className="w-full select-none bg-white text-white dark:bg-dark-gray"
+        onClick={handleClick}
+      >
         <div
-          className={`border-1 relative flex cursor-pointer items-center justify-between rounded border border-solid ${open ? "border-main-purple" : "border-lines-light"} px-4 py-2`}
+          className={`border-1 relative flex cursor-pointer items-center justify-between rounded border border-solid ${open ? "border-main-purple" : "border-lines-light dark:border-lines-dark"} px-4 py-2`}
         >
           {status}
           {open ? (
@@ -54,7 +57,7 @@ const StatusDropdown: React.FC<{
       {open &&
         createPortal(
           <div
-            className={`absolute flex flex-col gap-2 rounded-lg bg-white p-4 text-medium-gray`}
+            className={`absolute flex flex-col gap-2 rounded-lg bg-white p-4  text-medium-gray dark:bg-very-dark-gray`}
             style={{ width: `${width}px`, top: top + height + 10 }}
           >
             {options.map((option, index) => (

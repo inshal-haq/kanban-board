@@ -45,10 +45,12 @@ const MainHeader: React.FC = () => {
         onClose={handleCloseNewTaskModal}
       />
       {!isMobile && (
-        <header className="flex select-none border-b-2 border-b-lines-light bg-white">
+        <header className="flex select-none border-b-2 border-b-lines-light bg-white dark:border-b-lines-dark dark:bg-dark-gray">
           {!sidebarActive && <Logo />}
           <div className="flex flex-1 items-center justify-between px-7 py-5">
-            <div className="text-2xl font-bold leading-8">Platform Launch</div>
+            <div className="text-2xl font-bold leading-8 dark:text-white">
+              Platform Launch
+            </div>
             <div className="flex items-center gap-4">
               <Button
                 title="+ Add New Task"
@@ -63,7 +65,7 @@ const MainHeader: React.FC = () => {
       {isMobile && (
         <>
           <Sidebar />
-          <header className="flex select-none items-center justify-between bg-white px-7 py-5">
+          <header className="flex select-none items-center justify-between bg-white px-7 py-5 dark:bg-dark-gray dark:text-white">
             <div className="flex items-center gap-4">
               <img src={kanbanIcon} alt="kanban icon" width={36} />
               <div

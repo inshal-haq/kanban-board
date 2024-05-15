@@ -21,13 +21,13 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
     <>
       {!isMobile && sidebarActive && (
         <div className="flex min-h-screen">
-          <div className="fixed top-0 z-10 h-[86px] w-full bg-white pl-[260px] lg:pl-[300px]">
+          <div className="fixed top-0 z-10 h-[86px] w-full bg-white pl-[260px] lg:pl-[300px] dark:bg-dark-gray">
             <MainHeader />
           </div>
           <div className="fixed left-0 top-0 z-10 h-full w-[260px] lg:w-[300px]">
             <Sidebar />
           </div>
-          <main className="flex overflow-auto bg-light-gray pb-[24px] pl-[284px] pr-[24px] pt-[110px] lg:pl-[324px]">
+          <main className="flex overflow-auto bg-light-gray pb-[24px] pl-[284px] pr-[24px] pt-[110px] lg:pl-[324px] dark:bg-very-dark-gray">
             {props.children}
           </main>
         </div>
@@ -37,7 +37,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
           <main
             className={`flex flex-col ${isMobile && sidebarActive && "h-screen"}`}
           >
-            <div className="fixed top-0 z-10 h-[86px] w-full bg-white">
+            <div className="fixed top-0 z-10 h-[86px] w-full bg-white dark:bg-dark-gray">
               <MainHeader />
             </div>
             {isMobile && sidebarActive && (
@@ -47,7 +47,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
                 onClick={closeSidebarHandler}
               ></div>
             )}
-            <div className="flex min-h-screen overflow-auto bg-light-gray p-6 pt-[110px]">
+            <div className="flex min-h-screen overflow-auto bg-light-gray p-6 pt-[110px] dark:bg-very-dark-gray">
               {props.children}
             </div>
           </main>

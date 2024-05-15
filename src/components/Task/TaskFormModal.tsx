@@ -103,7 +103,7 @@ const TaskFormModal: React.FC<{
 
   return (
     <DialogModal open={open} onClose={onClose}>
-      <h2>{task ? "Edit" : "Add New"} Task</h2>
+      <h2 className="dark:text-white">{task ? "Edit" : "Add New"} Task</h2>
       <label className="text-medium-gray">
         <p className="mb-2">Title</p>
         <TextField
@@ -158,7 +158,7 @@ const TaskFormModal: React.FC<{
       </fieldset>
       <Button
         title="+ Add New Subtask"
-        className="flex justify-center bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25"
+        className="flex justify-center bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25 dark:bg-white"
         onClick={handleAddSubtask}
       />
       {!task && (

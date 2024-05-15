@@ -9,7 +9,9 @@ const DialogModal: React.FC<{
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
-      <div className="flex flex-col gap-6 p-8">{children}</div>
+      <div className="flex flex-col gap-6 p-8 dark:bg-dark-gray">
+        {children}
+      </div>
     </Dialog>
   );
 };

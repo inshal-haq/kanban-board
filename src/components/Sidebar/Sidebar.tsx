@@ -19,7 +19,7 @@ const Sidebar: React.FC = () => {
   return (
     <>
       {!isMobile && (
-        <aside className="flex h-full flex-col border-r-2 border-r-lines-light bg-white py-6">
+        <aside className="flex h-full flex-col border-r-2 border-r-lines-light bg-white py-6 dark:border-r-lines-dark dark:bg-dark-gray">
           <nav className="mb-auto w-full pr-6">
             <Logo />
             <BoardList />
@@ -42,7 +42,7 @@ const Sidebar: React.FC = () => {
       )}
       {isMobile && (
         <div
-          className={`fixed z-10 ml-20 mt-24 w-72 rounded-lg bg-white ${sidebarActive ? "block" : "hidden"} `}
+          className={`fixed z-10 ml-20 mt-24 w-72 rounded-lg  bg-white dark:bg-dark-gray ${sidebarActive ? "block" : "hidden"} `}
         >
           <nav className="mt-2 w-full pr-6">
             <BoardList />

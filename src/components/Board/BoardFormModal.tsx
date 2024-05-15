@@ -96,7 +96,7 @@ const BoardFormModal: React.FC<{
 
   return (
     <DialogModal open={open} onClose={onClose}>
-      <h2>{board ? "Edit" : "Add New"} Board</h2>
+      <h2 className="dark:text-white">{board ? "Edit" : "Add New"} Board</h2>
       <label className="text-medium-gray">
         <p className="mb-2">Name</p>
         <TextField
@@ -138,7 +138,7 @@ const BoardFormModal: React.FC<{
       </fieldset>
       <Button
         title="+ Add New Column"
-        className="flex justify-center bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25"
+        className="flex justify-center bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25 dark:bg-white"
         onClick={handleAddColumn}
       />
       <Button

@@ -66,7 +66,7 @@ const TaskOptionsDropdown: React.FC<{ task: Task }> = (props) => {
       {open &&
         createPortal(
           <div
-            className={`absolute flex w-[192px] flex-col gap-2 rounded-lg bg-white p-4 text-medium-gray`}
+            className={`absolute flex w-[192px] flex-col gap-2 rounded-lg bg-white p-4 text-medium-gray dark:bg-very-dark-gray`}
             style={{ top: top + height + 20, left: left - 96 }}
           >
             <div className="cursor-pointer" onClick={handleOpenEditModal}>

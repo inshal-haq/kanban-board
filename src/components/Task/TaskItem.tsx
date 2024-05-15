@@ -25,7 +25,7 @@ const TaskItem: React.FC<{ task: Task }> = (props) => {
         onClose={handleCloseModal}
       />
       <div
-        className="item flex w-[280px] cursor-pointer flex-col justify-center gap-2 rounded-lg bg-white px-4 py-6 shadow-md"
+        className="item flex w-[280px] cursor-pointer flex-col justify-center gap-2 rounded-lg bg-white px-4 py-6 shadow-md dark:bg-dark-gray dark:text-white"
         onClick={handleOpenModal}
       >
         <h3>{title}</h3>

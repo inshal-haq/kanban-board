@@ -1,6 +1,8 @@
 import { Switch } from "@mui/material";
 import { FiSun, FiMoon } from "react-icons/fi";
 import { styled } from "@mui/material/styles";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { uiActions } from "../../store/ui-slice";
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
   width: 36,
@@ -49,13 +51,21 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const LightSwitch: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const isDarkMode = useAppSelector((state) => state.ui.isDarkMode);
+
+  const changeTheme = () => {
+    if (isDarkMode) {
+      dispatch(uiActions.setLightMode());
+    } else {
+      dispatch(uiActions.setDarkMode());
+    }
+  };
+
   return (
-    <div className="flex items-center justify-center gap-6 rounded bg-light-gray py-4">
+    <div className="flex items-center justify-center gap-6 rounded bg-light-gray py-4 dark:bg-very-dark-gray">
       <FiSun className="text-xl text-medium-gray" />
-      <form>
-        <label htmlFor="light"></label>
-        <AntSwitch id="light" />
-      </form>
+      <AntSwitch onClick={changeTheme} checked={isDarkMode} />
       <FiMoon className="text-xl text-medium-gray" />
     </div>
   );
