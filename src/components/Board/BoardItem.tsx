@@ -11,8 +11,8 @@ const BoardItem: React.FC = () => {
   const isBoardEmpty = BOARDS.length === 0;
 
   const activeBoardId = useAppSelector((state) => state.board.activeBoardId);
-  const index = BOARDS.findIndex((board) => board.id === activeBoardId);
-  const columns = BOARDS[index].columns;
+
+  const board = BOARDS.find((board) => board.id === activeBoardId);
 
   return (
     <>
@@ -30,7 +30,7 @@ const BoardItem: React.FC = () => {
           />
         </div>
       )}
-      {!isBoardEmpty && <ColumnList columns={columns} />}
+      {!isBoardEmpty && <ColumnList board={board!} />}
     </>
   );
 };
