@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 import Board from "../models/board";
 
-import DUMMY_DATA from "../dummy-data.json";
+// import DUMMY_DATA from "../dummy-data.json";
 
 interface boardState {
   activeBoardId: string;
@@ -10,21 +9,23 @@ interface boardState {
 }
 
 const initialState: boardState = {
-  activeBoardId: DUMMY_DATA.boards[0].id || "",
-  boards: [],
+  boards: [], // DUMMY_DATA.boards || [],
+  activeBoardId: "", // DUMMY_DATA.boards[0].id || "",
 };
 
 const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
-    setActiveBoard(state, action: PayloadAction<string>) {
+    setActiveBoard(state, action) {
       state.activeBoardId = action.payload;
     },
     addBoard(state, action) {
-      const { name, columns } = action.payload;
-      const newBoard = new Board(name, columns);
-      state.boards.push(newBoard);
+      state.boards.push(action.payload);
+    },
+    removeBoard(state, action) {
+      const id = action.payload;
+      state.boards = state.boards.filter((board) => board.id !== id);
     },
   },
 });

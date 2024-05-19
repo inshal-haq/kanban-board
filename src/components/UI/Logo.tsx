@@ -5,11 +5,10 @@ import kanbanIcon from "../../assets/kanban-fill-purple.svg";
 const Logo: React.FC = () => {
   const sidebarActive = useAppSelector((state) => state.ui.sidebarActive);
 
-  let style =
-    "flex items-center justify-start gap-3 text-3xl font-bold dark:text-white ";
+  let style = "flex items-center justify-start gap-3 dark:text-white ";
 
   if (sidebarActive) {
-    style += "px-6 mb-6 ";
+    style += "px-6 mb-6";
   } else {
     style += "border-r-lines-light dark:border-r-lines-dark border-r-2 p-6";
   }
@@ -17,7 +16,7 @@ const Logo: React.FC = () => {
   return (
     <div className={style}>
       <img src={kanbanIcon} alt="kanban icon" width={36} />
-      kanban
+      <div className="text-3xl font-bold">kanban</div>
     </div>
   );
 };

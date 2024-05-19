@@ -20,7 +20,7 @@ const ColumnList: React.FC<{ board: Board }> = (props) => {
         board={props.board}
       />
       <ul className="flex gap-6">
-        {props.board.columns.map((column, index) => (
+        {props.board?.columns.map((column, index) => (
           <ColumnItem key={column.id} column={column} index={index} />
         ))}
         <h1

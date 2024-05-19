@@ -10,6 +10,16 @@ class Column {
     this.name = name;
     this.tasks = [];
   }
+
+  toPlainObject() {
+    return {
+      id: this.id,
+      name: this.name,
+      tasks: this.tasks.map((task) => {
+        return task instanceof Task ? task.toPlainObject() : task;
+      }),
+    };
+  }
 }
 
 export default Column;

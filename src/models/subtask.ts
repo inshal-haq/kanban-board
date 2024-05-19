@@ -8,6 +8,14 @@ class Subtask {
     this.title = title;
     this.isCompleted = false;
   }
+
+  toPlainObject() {
+    return {
+      id: this.id,
+      title: this.title,
+      isCompleted: this.isCompleted,
+    };
+  }
 }
 
 export default Subtask;

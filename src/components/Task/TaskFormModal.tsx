@@ -29,7 +29,7 @@ const TaskFormModal: React.FC<{
     newSubtasks[index] = {
       ...newSubtasks[index],
       title: event.target.value,
-    };
+    } as Subtask;
 
     const newDidEdits = [...didEdits];
     newDidEdits[index] = false;

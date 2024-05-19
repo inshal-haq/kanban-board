@@ -3,12 +3,11 @@ import { useState } from "react";
 import NavButton from "../UI/NavButton";
 import BoardName from "./BoardName";
 import { FiColumns } from "react-icons/fi";
-import DUMMY_DATA from "../../dummy-data.json";
 import BoardFormModal from "./BoardFormModal";
-
-const BOARDS = DUMMY_DATA.boards;
+import { useAppSelector } from "../../store/hooks";
 
 const BoardList: React.FC = () => {
+  const boards = useAppSelector((state) => state.board.boards);
   const [isAddBoardModalOpen, setAddBoardModalOpen] = useState(false);
   const handleOpenNewTaskModal = () => {
     setAddBoardModalOpen(true);
@@ -24,10 +23,10 @@ const BoardList: React.FC = () => {
         onClose={handleCloseNewTaskModal}
       />
       <h4 className="px-6 py-3 text-medium-gray">
-        ALL BOARDS ({BOARDS.length})
+        ALL BOARDS ({boards.length})
       </h4>
       <ul>
-        {BOARDS.map((board) => (
+        {boards.map((board) => (
           <BoardName key={board.id} id={board.id} name={board.name} />
         ))}
         <NavButton

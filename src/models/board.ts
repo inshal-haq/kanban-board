@@ -10,6 +10,16 @@ class Board {
     this.name = name;
     this.columns = columns;
   }
+
+  toPlainObject() {
+    return {
+      id: this.id,
+      name: this.name,
+      columns: this.columns.map((column) => {
+        return column instanceof Column ? column.toPlainObject() : column;
+      }),
+    };
+  }
 }
 
 export default Board;

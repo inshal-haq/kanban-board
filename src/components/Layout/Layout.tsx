@@ -21,13 +21,13 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
     <>
       {!isMobile && sidebarActive && (
         <div className="flex min-h-screen">
-          <div className="fixed top-0 z-10 h-[86px] w-full bg-white pl-[260px] lg:pl-[300px] dark:bg-dark-gray">
+          <div className="fixed top-0 z-10 h-[86px] w-full bg-white pl-[260px] dark:bg-dark-gray lg:pl-[300px]">
             <MainHeader />
           </div>
           <div className="fixed left-0 top-0 z-10 h-full w-[260px] lg:w-[300px]">
             <Sidebar />
           </div>
-          <main className="flex overflow-auto bg-light-gray pb-[24px] pl-[284px] pr-[24px] pt-[110px] lg:pl-[324px] dark:bg-very-dark-gray">
+          <main className="flex w-full overflow-auto bg-light-gray pb-[24px] pl-[284px] pr-[24px] pt-[110px] dark:bg-very-dark-gray lg:pl-[324px]">
             {props.children}
           </main>
         </div>

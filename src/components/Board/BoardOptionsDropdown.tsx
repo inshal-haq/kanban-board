@@ -46,7 +46,7 @@ const BoardOptionsDropdown: React.FC<{ board: Board }> = (props) => {
       <DeleteBoardModal
         open={isDeleteBoardModalOpen}
         onClose={handleCloseDeleteBoardModal}
-        boardName={props.board.name}
+        boardName={props.board?.name}
       />
       <h2 className="cursor-pointer" onClick={handleClick}>
         <FiMoreVertical className="text-2xl text-medium-gray" />

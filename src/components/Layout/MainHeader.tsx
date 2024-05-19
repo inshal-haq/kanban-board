@@ -2,7 +2,12 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { uiActions } from "../../store/ui-slice";
 
-import { FiChevronDown, FiChevronUp, FiPlus } from "react-icons/fi";
+import {
+  FiChevronDown,
+  FiChevronUp,
+  FiMoreVertical,
+  FiPlus,
+} from "react-icons/fi";
 import Button from "../UI/Button";
 import Logo from "../UI/Logo";
 import kanbanIcon from "../../assets/kanban-fill-purple.svg";
@@ -10,13 +15,13 @@ import Sidebar from "../Sidebar/Sidebar";
 import TaskFormModal from "../Task/TaskFormModal";
 import BoardOptionsDropdown from "../Board/BoardOptionsDropdown";
 
-import DUMMY_DATA from "../../dummy-data.json";
-
-const BOARDS = DUMMY_DATA.boards;
-
 const MainHeader: React.FC = () => {
+  const boards = useAppSelector((state) => state.board.boards);
   const activeBoardId = useAppSelector((state) => state.board.activeBoardId);
-  const board = BOARDS.find((board) => board.id === activeBoardId);
+  const board = boards.find((board) => board.id === activeBoardId);
+
+  const isKanbanEmpty = boards.length === 0;
+  const isBoardEmpty = board?.columns.length === 0;
 
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState(false);
   const handleOpenNewTaskModal = () => {
@@ -49,15 +54,30 @@ const MainHeader: React.FC = () => {
           {!sidebarActive && <Logo />}
           <div className="flex flex-1 items-center justify-between px-7 py-5">
             <div className="text-2xl font-bold leading-8 dark:text-white">
-              Platform Launch
+              {board?.name}
             </div>
             <div className="flex items-center gap-4">
-              <Button
-                title="+ Add New Task"
-                className="bg-main-purple text-white hover:bg-main-purple-hover"
-                onClick={handleOpenNewTaskModal}
-              />
-              <BoardOptionsDropdown board={board!} />
+              {(isKanbanEmpty || isBoardEmpty) && (
+                <>
+                  <Button
+                    title="+ Add New Task"
+                    className="cursor-not-allowed bg-main-purple bg-opacity-25 text-white"
+                  />
+                  <h2 className="cursor-not-allowed">
+                    <FiMoreVertical className="text-2xl text-medium-gray" />
+                  </h2>
+                </>
+              )}
+              {!isKanbanEmpty && !isBoardEmpty && (
+                <>
+                  <Button
+                    title="+ Add New Task"
+                    className="bg-main-purple text-white hover:bg-main-purple-hover"
+                    onClick={handleOpenNewTaskModal}
+                  />
+                  <BoardOptionsDropdown board={board!} />
+                </>
+              )}
             </div>
           </div>
         </header>
@@ -73,7 +93,7 @@ const MainHeader: React.FC = () => {
                 onClick={toggleSidebarModal}
               >
                 <div className="text-2xl font-bold leading-8">
-                  Platform Launch
+                  {board?.name}
                 </div>
                 {sidebarActive ? (
                   <FiChevronUp className="mt-1 text-lg text-main-purple" />
@@ -83,13 +103,27 @@ const MainHeader: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <button
-                className="cursor-pointer rounded-full bg-main-purple px-4 py-2 text-xl font-bold text-white hover:bg-main-purple-hover"
-                onClick={handleOpenNewTaskModal}
-              >
-                <FiPlus />
-              </button>
-              <BoardOptionsDropdown board={board!} />
+              {(isKanbanEmpty || isBoardEmpty) && (
+                <>
+                  <button className="cursor-not-allowed rounded-full bg-main-purple bg-opacity-25 px-4 py-2 text-xl font-bold text-white">
+                    <FiPlus />
+                  </button>
+                  <h2 className="cursor-not-allowed">
+                    <FiMoreVertical className="text-2xl text-medium-gray" />
+                  </h2>
+                </>
+              )}
+              {!isKanbanEmpty && !isBoardEmpty && (
+                <>
+                  <button
+                    className="cursor-pointer rounded-full bg-main-purple px-4 py-2 text-xl font-bold text-white hover:bg-main-purple-hover"
+                    onClick={handleOpenNewTaskModal}
+                  >
+                    <FiPlus />
+                  </button>
+                  <BoardOptionsDropdown board={board!} />
+                </>
+              )}
             </div>
           </header>
         </>

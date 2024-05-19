@@ -7,6 +7,9 @@ import { useInput } from "../../hooks/useInput";
 import { useState } from "react";
 import Button from "../UI/Button";
 import { FiX } from "react-icons/fi";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { boardActions } from "../../store/board-slice";
+import { uiActions } from "../../store/ui-slice";
 
 const BoardFormModal: React.FC<{
   open: boolean;
@@ -14,10 +17,19 @@ const BoardFormModal: React.FC<{
   board?: Board;
 }> = (props) => {
   const { open, onClose, board } = props;
-
-  const isNotEmpty = (value: string) => value.trim() !== "";
-
   const initialColumns = [new Column(""), new Column("")];
+  const isNotEmpty = (value: string) => value.trim() !== "";
+  const dispatch = useAppDispatch();
+  const isMobile = useAppSelector((state) => state.ui.isMobile);
+
+  const {
+    value: nameValue,
+    handleInputChange: handleNameChange,
+    handleInputBlur: handleNameBlur,
+    hasError: nameHasError,
+  } = useInput(board?.name ?? "", isNotEmpty);
+  let changeableNameHasError = nameHasError;
+
   const [columns, setColumns] = useState(board?.columns ?? initialColumns);
   const [didEdits, setDidEdits] = useState([false, false]);
   const handleColumnChange = (
@@ -28,7 +40,7 @@ const BoardFormModal: React.FC<{
     newColumns[index] = {
       ...newColumns[index],
       name: event.target.value,
-    };
+    } as Column;
 
     const newDidEdits = [...didEdits];
     newDidEdits[index] = false;
@@ -67,13 +79,6 @@ const BoardFormModal: React.FC<{
     return placeholder;
   };
 
-  const {
-    value: titleValue,
-    handleInputChange: handleTitleChange,
-    handleInputBlur: handleTitleBlur,
-    hasError: titleHasError,
-  } = useInput(board?.name ?? "", isNotEmpty);
-
   const handleAddColumn = () => {
     const newColumns = [...columns];
     newColumns.push(new Column(""));
@@ -94,19 +99,41 @@ const BoardFormModal: React.FC<{
     setDidEdits(filteredEdits);
   };
 
+  const handleAddBoard = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!isNotEmpty(nameValue)) {
+      changeableNameHasError = true;
+      return;
+    }
+    const boardName = nameValue;
+
+    const boardColumns = columns.filter((column) => isNotEmpty(column.name));
+
+    const board = new Board(boardName, boardColumns);
+    const plainBoard = board.toPlainObject();
+
+    dispatch(boardActions.addBoard(plainBoard));
+    dispatch(boardActions.setActiveBoard(plainBoard.id));
+    if (isMobile) {
+      dispatch(uiActions.closeSidebar());
+    }
+    props.onClose();
+  };
+
   return (
-    <DialogModal open={open} onClose={onClose}>
+    <DialogModal open={open} onClose={onClose} onFormSubmit={handleAddBoard}>
       <h2 className="dark:text-white">{board ? "Edit" : "Add New"} Board</h2>
       <label className="text-medium-gray">
         <p className="mb-2">Name</p>
         <TextField
-          id="title"
-          name="title"
+          id="name"
+          name="name"
           placeholder="e.g. Bucket List"
-          value={titleValue}
-          onChange={handleTitleChange}
-          onBlur={handleTitleBlur}
-          error={titleHasError}
+          value={nameValue}
+          onChange={handleNameChange}
+          onBlur={handleNameBlur}
+          error={changeableNameHasError}
         />
       </label>
       <fieldset className="text-medium-gray">
@@ -137,6 +164,7 @@ const BoardFormModal: React.FC<{
         </label>
       </fieldset>
       <Button
+        type="button"
         title="+ Add New Column"
         className="flex justify-center bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25 dark:bg-white"
         onClick={handleAddColumn}
