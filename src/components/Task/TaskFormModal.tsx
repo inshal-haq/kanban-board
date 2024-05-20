@@ -9,15 +9,15 @@ import Button from "../UI/Button";
 import { FiX } from "react-icons/fi";
 import StatusDropdown from "./StatusDropdown";
 
-const TaskFormModal: React.FC<{
+interface TaskFormModalProps {
   open: boolean;
   onClose: () => void;
   task?: Task;
-}> = (props) => {
+}
+
+const TaskFormModal: React.FC<TaskFormModalProps> = (props) => {
   const { open, onClose, task } = props;
-
   const isNotEmpty = (value: string) => value.trim() !== "";
-
   const initialSubtasks = [new Subtask(""), new Subtask("")];
   const [subtasks, setSubtasks] = useState(task?.subtasks ?? initialSubtasks);
   const [didEdits, setDidEdits] = useState([false, false]);
@@ -42,10 +42,8 @@ const TaskFormModal: React.FC<{
     newDidEdits[index] = true;
     setDidEdits(newDidEdits);
   };
-
   const subtaskHasError = (index: number) =>
     didEdits[index] && !isNotEmpty(subtasks[index].title);
-
   const subtaskPlaceholder = (index: number) => {
     let placeholder = "";
     switch ((index + 1) % 5) {
@@ -157,6 +155,7 @@ const TaskFormModal: React.FC<{
         </label>
       </fieldset>
       <Button
+        type="button"
         title="+ Add New Subtask"
         className="flex justify-center bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25 dark:bg-white"
         onClick={handleAddSubtask}

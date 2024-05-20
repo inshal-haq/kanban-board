@@ -157,13 +157,13 @@
             },
             {
               "id": "task8",
-              "title": "Add search enpoints",
+              "title": "Add search endpoints",
               "description": "",
               "status": "Doing",
               "subtasks": [
                 {
                   "id": "subtask18",
-                  "title": "Add search endpoint",
+                  "title": "Add search endpoints",
                   "isCompleted": true
                 },
                 {

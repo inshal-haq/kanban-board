@@ -3,7 +3,7 @@ import { Dialog } from "@mui/material";
 const DialogModal: React.FC<{
   open: boolean;
   onClose: () => void;
-  onFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onFormSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
   children: React.ReactNode;
 }> = (props) => {
   const { open, onClose, onFormSubmit, children } = props;

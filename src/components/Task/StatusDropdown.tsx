@@ -44,7 +44,7 @@ const StatusDropdown: React.FC<{
         onClick={handleClick}
       >
         <div
-          className={`border-1 relative flex cursor-pointer items-center justify-between rounded border border-solid ${open ? "border-main-purple" : "border-lines-light dark:border-lines-dark"} px-4 py-2`}
+          className={`border-1 relative flex cursor-pointer items-center justify-between rounded border border-solid text-black dark:text-white ${open ? "border-main-purple" : "border-lines-light dark:border-lines-dark"} px-4 py-2`}
         >
           {status}
           {open ? (

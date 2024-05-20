@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface uiState {
   isMobile: boolean;
-  sidebarActive: boolean;
   isDarkMode: boolean;
+  isSidebarOpen: boolean;
 }
 
 const initialState: uiState = {
   isMobile: false,
-  sidebarActive: false,
   isDarkMode: false,
+  isSidebarOpen: false,
 };
 
 const uiSlice = createSlice({
@@ -22,17 +22,19 @@ const uiSlice = createSlice({
     setMobileViewOff(state) {
       state.isMobile = false;
     },
-    openSidebar(state) {
-      state.sidebarActive = true;
-    },
-    closeSidebar(state) {
-      state.sidebarActive = false;
-    },
+
     setLightMode(state) {
       state.isDarkMode = false;
     },
     setDarkMode(state) {
       state.isDarkMode = true;
+    },
+
+    openSidebar(state) {
+      state.isSidebarOpen = true;
+    },
+    closeSidebar(state) {
+      state.isSidebarOpen = false;
     },
   },
 });

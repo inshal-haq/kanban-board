@@ -1,15 +1,32 @@
 import DialogModal from "../UI/DialogModal";
 import Button from "../UI/Button";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { boardActions } from "../../store/board-slice";
 
-const DeleteBoardModal: React.FC<{
+interface DeleteBoardModalProps {
   open: boolean;
   onClose: () => void;
   boardName: string;
-}> = (props) => {
+}
+
+const DeleteBoardModal: React.FC<DeleteBoardModalProps> = (props) => {
   const { open, onClose, boardName } = props;
+  const dispatch = useAppDispatch();
+  const activeBoardIndex = useAppSelector(
+    (state) => state.board.activeBoardIndex,
+  );
+  const boards = useAppSelector((state) => state.board.boards);
+
+  const handleDeleteBoard = () => {
+    dispatch(boardActions.deleteBoard(activeBoardIndex));
+    props.onClose();
+    if (boards.length !== 0) {
+      dispatch(boardActions.setActiveBoard(0));
+    }
+  };
 
   return (
-    <DialogModal open={open} onClose={onClose}>
+    <DialogModal open={open} onClose={onClose} onFormSubmit={handleDeleteBoard}>
       <h2 className="text-red">Delete this board?</h2>
       <div className="text-medium-gray">
         Are you sure you want to delete the ‘{boardName}’ board? This action
@@ -19,9 +36,9 @@ const DeleteBoardModal: React.FC<{
         <Button
           title="Delete"
           className=" flex flex-1 justify-center bg-red text-white hover:bg-red-hover"
-          onClick={() => console.log("todo")}
         />
         <Button
+          type="button"
           title="Cancel"
           className="flex flex-1 justify-center bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25 dark:bg-white"
           onClick={onClose}

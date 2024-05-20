@@ -10,7 +10,7 @@ import { uiActions } from "../../store/ui-slice";
 const Sidebar: React.FC = () => {
   const dispatch = useAppDispatch();
   const isMobile = useAppSelector((state) => state.ui.isMobile);
-  const sidebarActive = useAppSelector((state) => state.ui.sidebarActive);
+  const isSidebarOpen = useAppSelector((state) => state.ui.isSidebarOpen);
 
   function handleHideSidebar() {
     dispatch(uiActions.closeSidebar());
@@ -42,7 +42,7 @@ const Sidebar: React.FC = () => {
       )}
       {isMobile && (
         <div
-          className={`fixed z-10 ml-20 mt-24 w-72 rounded-lg  bg-white dark:bg-dark-gray ${sidebarActive ? "block" : "hidden"} `}
+          className={`fixed z-10 ml-20 mt-24 w-72 rounded-lg  bg-white dark:bg-dark-gray ${isSidebarOpen ? "block" : "hidden"} `}
         >
           <nav className="mt-2 w-full pr-6">
             <BoardList />

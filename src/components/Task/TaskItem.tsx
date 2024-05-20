@@ -5,12 +5,12 @@ import ViewTaskModal from "./ViewTaskModal";
 const TaskItem: React.FC<{ task: Task }> = (props) => {
   const { title, subtasks } = props.task;
 
-  const [isModalOpen, setModalOpen] = useState(false);
-  const handleOpenModal = () => {
-    setModalOpen(true);
+  const [isViewTaskModalOpen, setViewTaskModalOpen] = useState(false);
+  const handleOpenViewTaskModal = () => {
+    setViewTaskModalOpen(true);
   };
-  const handleCloseModal = () => {
-    setModalOpen(false);
+  const handleCloseViewTaskModal = () => {
+    setViewTaskModalOpen(false);
   };
 
   const numOfCompletedSubtasks = subtasks.filter(
@@ -21,12 +21,12 @@ const TaskItem: React.FC<{ task: Task }> = (props) => {
     <>
       <ViewTaskModal
         task={props.task}
-        open={isModalOpen}
-        onClose={handleCloseModal}
+        open={isViewTaskModalOpen}
+        onClose={handleCloseViewTaskModal}
       />
       <div
         className="item flex w-[280px] cursor-pointer flex-col justify-center gap-2 rounded-lg bg-white px-4 py-6 shadow-md dark:bg-dark-gray dark:text-white"
-        onClick={handleOpenModal}
+        onClick={handleOpenViewTaskModal}
       >
         <h3>{title}</h3>
         <p className="text-medium-gray">

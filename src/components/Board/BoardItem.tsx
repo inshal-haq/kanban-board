@@ -9,10 +9,11 @@ const BoardItem: React.FC = () => {
   const boards = useAppSelector((state) => state.board.boards);
   const isKanbanEmpty = boards.length === 0;
 
-  const activeBoardId = useAppSelector((state) => state.board.activeBoardId);
-
-  const board = boards.find((board) => board.id === activeBoardId);
-  const isBoardEmpty = board?.columns.length === 0;
+  const activeBoardIndex = useAppSelector(
+    (state) => state.board.activeBoardIndex,
+  );
+  const activeBoard = boards[activeBoardIndex];
+  const isBoardEmpty = activeBoard.columns.length === 0;
 
   const [isAddBoardModalOpen, setAddBoardModalOpen] = useState(false);
   const handleOpenNewTaskModal = () => {
@@ -39,7 +40,7 @@ const BoardItem: React.FC = () => {
       <BoardFormModal
         open={isEditBoardModalOpen}
         onClose={handleCloseEditBoardModal}
-        board={board}
+        board={activeBoard}
       />
       {isKanbanEmpty && (
         <div className="flex flex-1 flex-col items-center justify-center gap-8">
@@ -65,7 +66,7 @@ const BoardItem: React.FC = () => {
           />
         </div>
       )}
-      {!isKanbanEmpty && !isBoardEmpty && <ColumnList board={board!} />}
+      {!isKanbanEmpty && !isBoardEmpty && <ColumnList />}
     </>
   );
 };

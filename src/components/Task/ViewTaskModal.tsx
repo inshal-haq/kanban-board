@@ -4,11 +4,13 @@ import DialogModal from "../UI/DialogModal";
 import StatusDropdown from "./StatusDropdown";
 import TaskOptionsDropdown from "./TaskOptionsDropdown";
 
-const ViewTaskModal: React.FC<{
+interface ViewTaskModalProps {
   task: Task;
   open: boolean;
   onClose: () => void;
-}> = (props) => {
+}
+
+const ViewTaskModal: React.FC<ViewTaskModalProps> = (props) => {
   const { task, open, onClose } = props;
   const { title, description, status, subtasks } = task;
 

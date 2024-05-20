@@ -11,11 +11,13 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { boardActions } from "../../store/board-slice";
 import { uiActions } from "../../store/ui-slice";
 
-const BoardFormModal: React.FC<{
+interface BoardFormModalProps {
   open: boolean;
   onClose: () => void;
   board?: Board;
-}> = (props) => {
+}
+
+const BoardFormModal: React.FC<BoardFormModalProps> = (props) => {
   const { open, onClose, board } = props;
   const initialColumns = [new Column(""), new Column("")];
   const isNotEmpty = (value: string) => value.trim() !== "";
@@ -28,7 +30,6 @@ const BoardFormModal: React.FC<{
     handleInputBlur: handleNameBlur,
     hasError: nameHasError,
   } = useInput(board?.name ?? "", isNotEmpty);
-  let changeableNameHasError = nameHasError;
 
   const [columns, setColumns] = useState(board?.columns ?? initialColumns);
   const [didEdits, setDidEdits] = useState([false, false]);
@@ -99,22 +100,30 @@ const BoardFormModal: React.FC<{
     setDidEdits(filteredEdits);
   };
 
-  const handleAddBoard = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!isNotEmpty(nameValue)) {
-      changeableNameHasError = true;
       return;
     }
     const boardName = nameValue;
 
     const boardColumns = columns.filter((column) => isNotEmpty(column.name));
+    if (boardColumns.length === 0) {
+      return;
+    }
 
-    const board = new Board(boardName, boardColumns);
-    const plainBoard = board.toPlainObject();
+    const newBoard = new Board(boardName, boardColumns);
+    const plainBoard = newBoard.toPlainObject();
 
-    dispatch(boardActions.addBoard(plainBoard));
+    const currentBoardId = board?.id;
+    if (board) {
+      dispatch(boardActions.editBoard({ currentBoardId, plainBoard }));
+    } else {
+      dispatch(boardActions.addBoard(plainBoard));
+    }
     dispatch(boardActions.setActiveBoard(plainBoard.id));
+
     if (isMobile) {
       dispatch(uiActions.closeSidebar());
     }
@@ -122,7 +131,7 @@ const BoardFormModal: React.FC<{
   };
 
   return (
-    <DialogModal open={open} onClose={onClose} onFormSubmit={handleAddBoard}>
+    <DialogModal open={open} onClose={onClose} onFormSubmit={handleSubmit}>
       <h2 className="dark:text-white">{board ? "Edit" : "Add New"} Board</h2>
       <label className="text-medium-gray">
         <p className="mb-2">Name</p>
@@ -133,7 +142,7 @@ const BoardFormModal: React.FC<{
           value={nameValue}
           onChange={handleNameChange}
           onBlur={handleNameBlur}
-          error={changeableNameHasError}
+          error={nameHasError}
         />
       </label>
       <fieldset className="text-medium-gray">
@@ -154,10 +163,12 @@ const BoardFormModal: React.FC<{
                   onBlur={() => handleColumnBlur(index)}
                   error={columnHasError(index)}
                 />
-                <FiX
-                  className="cursor-pointer text-xl hover:text-red"
-                  onClick={() => handleRemoveColumn(id, index)}
-                />
+                {columns.length !== 1 && (
+                  <FiX
+                    className="cursor-pointer text-xl hover:text-red"
+                    onClick={() => handleRemoveColumn(id, index)}
+                  />
+                )}
               </div>
             ))}
           </ul>
@@ -172,7 +183,6 @@ const BoardFormModal: React.FC<{
       <Button
         title={board ? "Save Changes" : "Create Board"}
         className="flex justify-center bg-main-purple text-white hover:bg-main-purple-hover"
-        onClick={() => console.log("todo")}
       />
     </DialogModal>
   );

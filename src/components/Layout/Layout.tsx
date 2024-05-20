@@ -7,7 +7,7 @@ import { FiEye } from "react-icons/fi";
 
 const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
   const dispatch = useAppDispatch();
-  const sidebarActive = useAppSelector((state) => state.ui.sidebarActive);
+  const isSidebarOpen = useAppSelector((state) => state.ui.isSidebarOpen);
   const isMobile = useAppSelector((state) => state.ui.isMobile);
 
   const openSidebarHandler = () => {
@@ -19,7 +19,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
 
   return (
     <>
-      {!isMobile && sidebarActive && (
+      {!isMobile && isSidebarOpen && (
         <div className="flex min-h-screen">
           <div className="fixed top-0 z-10 h-[86px] w-full bg-white pl-[260px] dark:bg-dark-gray lg:pl-[300px]">
             <MainHeader />
@@ -32,15 +32,15 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
           </main>
         </div>
       )}
-      {(isMobile || !sidebarActive) && (
+      {(isMobile || !isSidebarOpen) && (
         <>
           <main
-            className={`flex flex-col ${isMobile && sidebarActive && "h-screen"}`}
+            className={`flex flex-col ${isMobile && isSidebarOpen && "h-screen"}`}
           >
             <div className="fixed top-0 z-10 h-[86px] w-full bg-white dark:bg-dark-gray">
               <MainHeader />
             </div>
-            {isMobile && sidebarActive && (
+            {isMobile && isSidebarOpen && (
               <div
                 className="fixed bottom-0 w-full bg-black bg-opacity-60"
                 style={{ height: "calc(100vh - 86px)" }}

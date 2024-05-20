@@ -3,11 +3,11 @@ import { useAppSelector } from "../../store/hooks";
 import kanbanIcon from "../../assets/kanban-fill-purple.svg";
 
 const Logo: React.FC = () => {
-  const sidebarActive = useAppSelector((state) => state.ui.sidebarActive);
+  const isSidebarOpen = useAppSelector((state) => state.ui.isSidebarOpen);
 
   let style = "flex items-center justify-start gap-3 dark:text-white ";
 
-  if (sidebarActive) {
+  if (isSidebarOpen) {
     style += "px-6 mb-6";
   } else {
     style += "border-r-lines-light dark:border-r-lines-dark border-r-2 p-6";

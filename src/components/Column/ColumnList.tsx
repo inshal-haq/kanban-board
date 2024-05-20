@@ -1,9 +1,9 @@
 import { useState } from "react";
 import ColumnItem from "./ColumnItem";
 import BoardFormModal from "../Board/BoardFormModal";
-import Board from "../../models/board";
+import { useAppSelector } from "../../store/hooks";
 
-const ColumnList: React.FC<{ board: Board }> = (props) => {
+const ColumnList: React.FC = () => {
   const [isEditBoardModalOpen, setEditBoardModalOpen] = useState(false);
   const handleOpenEditBoardModal = () => {
     setEditBoardModalOpen(true);
@@ -12,15 +12,21 @@ const ColumnList: React.FC<{ board: Board }> = (props) => {
     setEditBoardModalOpen(false);
   };
 
+  const boards = useAppSelector((state) => state.board.boards);
+  const activeBoardIndex = useAppSelector(
+    (state) => state.board.activeBoardIndex,
+  );
+  const activeBoard = boards[activeBoardIndex];
+
   return (
     <>
       <BoardFormModal
         open={isEditBoardModalOpen}
         onClose={handleCloseEditBoardModal}
-        board={props.board}
+        board={activeBoard}
       />
       <ul className="flex gap-6">
-        {props.board?.columns.map((column, index) => (
+        {activeBoard.columns.map((column, index) => (
           <ColumnItem key={column.id} column={column} index={index} />
         ))}
         <h1
