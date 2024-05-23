@@ -4,7 +4,7 @@ import { boardActions } from "../../store/board-slice";
 import { FiColumns } from "react-icons/fi";
 import NavButton from "../UI/NavButton";
 
-const BoardName: React.FC<{ index: number; name: string }> = (props) => {
+const BoardName: React.FC<{ name: string; index: number }> = (props) => {
   const dispatch = useAppDispatch();
   const activeBoardIndex = useAppSelector(
     (state) => state.board.activeBoardIndex,

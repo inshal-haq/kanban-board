@@ -13,7 +13,7 @@ const BoardItem: React.FC = () => {
     (state) => state.board.activeBoardIndex,
   );
   const activeBoard = boards[activeBoardIndex];
-  const isBoardEmpty = activeBoard.columns.length === 0;
+  const isBoardEmpty = activeBoard?.columns.length === 0;
 
   const [isAddBoardModalOpen, setAddBoardModalOpen] = useState(false);
   const handleOpenNewTaskModal = () => {
@@ -40,7 +40,7 @@ const BoardItem: React.FC = () => {
       <BoardFormModal
         open={isEditBoardModalOpen}
         onClose={handleCloseEditBoardModal}
-        board={activeBoard}
+        isEditing
       />
       {isKanbanEmpty && (
         <div className="flex flex-1 flex-col items-center justify-center gap-8">

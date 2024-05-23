@@ -1,13 +1,27 @@
 import { useState } from "react";
 import Task from "../../models/task";
 import ViewTaskModal from "./ViewTaskModal";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { boardActions } from "../../store/board-slice";
 
-const TaskItem: React.FC<{ task: Task }> = (props) => {
-  const { title, subtasks } = props.task;
+const TaskItem: React.FC<{ task: Task; columnIndex: number }> = (props) => {
+  const { id, title, subtasks } = props.task;
+
+  const dispatch = useAppDispatch();
+  const boards = useAppSelector((state) => state.board.boards);
+  const activeBoardIndex = useAppSelector(
+    (state) => state.board.activeBoardIndex,
+  );
+  const activeBoard = boards[activeBoardIndex];
 
   const [isViewTaskModalOpen, setViewTaskModalOpen] = useState(false);
   const handleOpenViewTaskModal = () => {
+    const taskIndex = activeBoard.columns[props.columnIndex].tasks.findIndex(
+      (task) => task.id === id,
+    );
     setViewTaskModalOpen(true);
+    dispatch(boardActions.setActiveColumn(props.columnIndex));
+    dispatch(boardActions.setActiveTask(taskIndex));
   };
   const handleCloseViewTaskModal = () => {
     setViewTaskModalOpen(false);

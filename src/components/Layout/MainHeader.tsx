@@ -56,7 +56,7 @@ const MainHeader: React.FC = () => {
           {!isSidebarOpen && <Logo />}
           <div className="flex flex-1 items-center justify-between px-7 py-5">
             <div className="text-2xl font-bold leading-8 dark:text-white">
-              {activeBoard.name}
+              {activeBoard?.name}
             </div>
             <div className="flex items-center gap-4">
               {(isKanbanEmpty || isBoardEmpty) && (
@@ -70,7 +70,7 @@ const MainHeader: React.FC = () => {
                   <FiMoreVertical className="text-2xl text-medium-gray" />
                 </h2>
               )}
-              {isBoardEmpty && <BoardOptionsDropdown board={activeBoard} />}
+              {isBoardEmpty && <BoardOptionsDropdown />}
               {!isKanbanEmpty && !isBoardEmpty && (
                 <>
                   <Button
@@ -78,7 +78,7 @@ const MainHeader: React.FC = () => {
                     className="bg-main-purple text-white hover:bg-main-purple-hover"
                     onClick={handleOpenNewTaskModal}
                   />
-                  <BoardOptionsDropdown board={activeBoard} />
+                  <BoardOptionsDropdown />
                 </>
               )}
             </div>
@@ -96,7 +96,7 @@ const MainHeader: React.FC = () => {
                 onClick={toggleSidebarModal}
               >
                 <div className="text-2xl font-bold leading-8">
-                  {activeBoard.name}
+                  {activeBoard?.name}
                 </div>
                 {isSidebarOpen ? (
                   <FiChevronUp className="mt-1 text-lg text-main-purple" />
@@ -116,7 +116,7 @@ const MainHeader: React.FC = () => {
                   <FiMoreVertical className="text-2xl text-medium-gray" />
                 </h2>
               )}
-              {isBoardEmpty && <BoardOptionsDropdown board={activeBoard} />}
+              {isBoardEmpty && <BoardOptionsDropdown />}
               {!isKanbanEmpty && !isBoardEmpty && (
                 <>
                   <button
@@ -125,7 +125,7 @@ const MainHeader: React.FC = () => {
                   >
                     <FiPlus />
                   </button>
-                  <BoardOptionsDropdown board={activeBoard} />
+                  <BoardOptionsDropdown />
                 </>
               )}
             </div>

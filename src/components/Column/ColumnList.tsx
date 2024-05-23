@@ -23,7 +23,7 @@ const ColumnList: React.FC = () => {
       <BoardFormModal
         open={isEditBoardModalOpen}
         onClose={handleCloseEditBoardModal}
-        board={activeBoard}
+        isEditing
       />
       <ul className="flex gap-6">
         {activeBoard.columns.map((column, index) => (

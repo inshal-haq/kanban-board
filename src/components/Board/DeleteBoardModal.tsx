@@ -6,16 +6,17 @@ import { boardActions } from "../../store/board-slice";
 interface DeleteBoardModalProps {
   open: boolean;
   onClose: () => void;
-  boardName: string;
 }
 
 const DeleteBoardModal: React.FC<DeleteBoardModalProps> = (props) => {
-  const { open, onClose, boardName } = props;
+  const { open, onClose } = props;
   const dispatch = useAppDispatch();
+
+  const boards = useAppSelector((state) => state.board.boards);
   const activeBoardIndex = useAppSelector(
     (state) => state.board.activeBoardIndex,
   );
-  const boards = useAppSelector((state) => state.board.boards);
+  const activeBoard = boards[activeBoardIndex];
 
   const handleDeleteBoard = () => {
     dispatch(boardActions.deleteBoard(activeBoardIndex));
@@ -29,8 +30,8 @@ const DeleteBoardModal: React.FC<DeleteBoardModalProps> = (props) => {
     <DialogModal open={open} onClose={onClose} onFormSubmit={handleDeleteBoard}>
       <h2 className="text-red">Delete this board?</h2>
       <div className="text-medium-gray">
-        Are you sure you want to delete the ‘{boardName}’ board? This action
-        will remove all columns and tasks and cannot be reversed.
+        Are you sure you want to delete the ‘{activeBoard.name}’ board? This
+        action will remove all columns and tasks and cannot be reversed.
       </div>
       <div className="flex items-center justify-between gap-4">
         <Button

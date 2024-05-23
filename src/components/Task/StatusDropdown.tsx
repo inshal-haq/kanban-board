@@ -1,18 +1,25 @@
 import { useState, useEffect, useRef } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { createPortal } from "react-dom";
+import { useAppSelector } from "../../store/hooks";
 
 const StatusDropdown: React.FC<{
-  initialStatus?: string;
+  taskCurrentStatus?: string;
 }> = (props) => {
   const [open, setOpen] = useState(false);
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
   const [top, setTop] = useState<number>(0);
 
-  const options = ["Todo", "Doing", "Done"];
-  const initialStatus = props.initialStatus || options[0];
-  const [status, setStatus] = useState(initialStatus);
+  const boards = useAppSelector((state) => state.board.boards);
+  const activeBoardIndex = useAppSelector(
+    (state) => state.board.activeBoardIndex,
+  );
+  const activeBoard = boards[activeBoardIndex];
+
+  const options = activeBoard.columns.map((column) => column.name);
+  const taskCurrentStatus = props.taskCurrentStatus || options[0];
+  const [status, setStatus] = useState(taskCurrentStatus);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setOpen((prevState) => !prevState);
@@ -22,8 +29,8 @@ const StatusDropdown: React.FC<{
   };
 
   const handleOptionSelect = (option: string) => {
-    setOpen(false);
     setStatus(option);
+    setOpen(false);
   };
 
   const portalModalContainer = useRef<HTMLElement | null>(null);

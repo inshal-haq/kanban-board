@@ -14,24 +14,33 @@ import { uiActions } from "../../store/ui-slice";
 interface BoardFormModalProps {
   open: boolean;
   onClose: () => void;
-  board?: Board;
+  isEditing?: boolean;
 }
 
 const BoardFormModal: React.FC<BoardFormModalProps> = (props) => {
-  const { open, onClose, board } = props;
+  const { open, onClose, isEditing } = props;
   const initialColumns = [new Column(""), new Column("")];
   const isNotEmpty = (value: string) => value.trim() !== "";
   const dispatch = useAppDispatch();
   const isMobile = useAppSelector((state) => state.ui.isMobile);
+
+  const boards = useAppSelector((state) => state.board.boards);
+  const activeBoardIndex = useAppSelector(
+    (state) => state.board.activeBoardIndex,
+  );
+
+  const activeBoard = isEditing ? boards[activeBoardIndex] : undefined;
 
   const {
     value: nameValue,
     handleInputChange: handleNameChange,
     handleInputBlur: handleNameBlur,
     hasError: nameHasError,
-  } = useInput(board?.name ?? "", isNotEmpty);
+  } = useInput(activeBoard?.name ?? "", isNotEmpty);
 
-  const [columns, setColumns] = useState(board?.columns ?? initialColumns);
+  const [columns, setColumns] = useState(
+    activeBoard?.columns ?? initialColumns,
+  );
   const [didEdits, setDidEdits] = useState([false, false]);
   const handleColumnChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -116,13 +125,13 @@ const BoardFormModal: React.FC<BoardFormModalProps> = (props) => {
     const newBoard = new Board(boardName, boardColumns);
     const plainBoard = newBoard.toPlainObject();
 
-    const currentBoardId = board?.id;
-    if (board) {
-      dispatch(boardActions.editBoard({ currentBoardId, plainBoard }));
+    if (isEditing) {
+      dispatch(boardActions.editBoard({ activeBoardIndex, plainBoard }));
     } else {
       dispatch(boardActions.addBoard(plainBoard));
     }
-    dispatch(boardActions.setActiveBoard(plainBoard.id));
+
+    dispatch(boardActions.setActiveBoard(boards.length));
 
     if (isMobile) {
       dispatch(uiActions.closeSidebar());
@@ -132,7 +141,9 @@ const BoardFormModal: React.FC<BoardFormModalProps> = (props) => {
 
   return (
     <DialogModal open={open} onClose={onClose} onFormSubmit={handleSubmit}>
-      <h2 className="dark:text-white">{board ? "Edit" : "Add New"} Board</h2>
+      <h2 className="dark:text-white">
+        {isEditing ? "Edit" : "Add New"} Board
+      </h2>
       <label className="text-medium-gray">
         <p className="mb-2">Name</p>
         <TextField
@@ -181,7 +192,7 @@ const BoardFormModal: React.FC<BoardFormModalProps> = (props) => {
         onClick={handleAddColumn}
       />
       <Button
-        title={board ? "Save Changes" : "Create Board"}
+        title={isEditing ? "Save Changes" : "Create Board"}
         className="flex justify-center bg-main-purple text-white hover:bg-main-purple-hover"
       />
     </DialogModal>

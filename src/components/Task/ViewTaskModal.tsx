@@ -37,7 +37,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = (props) => {
       </fieldset>
       <label className="text-medium-gray">
         <p className="mb-2">Current Status</p>
-        <StatusDropdown initialStatus={status} />
+        <StatusDropdown taskCurrentStatus={status} />
       </label>
     </DialogModal>
   );

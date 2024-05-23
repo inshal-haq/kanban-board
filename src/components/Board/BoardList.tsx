@@ -27,10 +27,9 @@ const BoardList: React.FC = () => {
       </h4>
       <ul>
         {boards.map((board, index) => (
-          <BoardName key={board.id} index={index} name={board.name} />
+          <BoardName key={board.id} name={board.name} index={index} />
         ))}
         <NavButton
-          active={false}
           textColor="text-main-purple"
           onClick={handleOpenNewTaskModal}
         >

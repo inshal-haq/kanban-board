@@ -1,12 +1,16 @@
-const NavButton: React.FC<{
+interface NavButtonProps {
   onClick?: () => void;
-  active: boolean;
+  active?: boolean;
   textColor: string;
   children: React.ReactNode;
-}> = (props) => {
-  let style = `flex items-center gap-3 rounded-br-full rounded-tr-full px-6 py-4 font-bold cursor-pointer ${props.textColor} `;
+}
 
-  if (props.active) {
+const NavButton: React.FC<NavButtonProps> = (props) => {
+  const { onClick, active, textColor, children } = props;
+
+  let style = `flex items-center gap-3 rounded-br-full rounded-tr-full px-6 py-4 font-bold cursor-pointer ${textColor} `;
+
+  if (active) {
     style += "bg-main-purple";
   } else {
     style +=
@@ -14,8 +18,8 @@ const NavButton: React.FC<{
   }
 
   return (
-    <h3 className={style} onClick={props.onClick}>
-      {props.children}
+    <h3 className={style} onClick={onClick}>
+      {children}
     </h3>
   );
 };

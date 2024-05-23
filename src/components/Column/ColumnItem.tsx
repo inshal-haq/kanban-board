@@ -35,7 +35,7 @@ const ColumnItem: React.FC<{ column: Column; index: number }> = (props) => {
           {name.toUpperCase()} ({tasks.length})
         </h4>
       </div>
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} columnIndex={props.index} />
     </div>
   );
 };
