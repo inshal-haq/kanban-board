@@ -44,6 +44,41 @@ const boardSlice = createSlice({
     setActiveTask(state, action) {
       state.activeTaskIndex = action.payload;
     },
+
+    updateTask(state, action) {
+      const {
+        activeBoardIndex,
+        activeColumnIndex,
+        activeTaskIndex,
+        updatedTask,
+      } = action.payload;
+
+      state.boards[activeBoardIndex].columns[activeColumnIndex].tasks[
+        activeTaskIndex
+      ].subtasks = updatedTask.subtasks;
+
+      const currentStatus =
+        state.boards[activeBoardIndex].columns[activeColumnIndex].name;
+
+      if (currentStatus !== updatedTask.status) {
+        const updatedColumnIndex = state.boards[
+          activeBoardIndex
+        ].columns.findIndex((column) => column.name === updatedTask.status);
+
+        const movedTask =
+          state.boards[activeBoardIndex].columns[activeColumnIndex].tasks[
+            activeTaskIndex
+          ];
+
+        state.boards[activeBoardIndex].columns[activeColumnIndex].tasks.splice(
+          activeTaskIndex,
+          1,
+        );
+        state.boards[activeBoardIndex].columns[updatedColumnIndex].tasks.push(
+          movedTask,
+        );
+      }
+    },
   },
 });
 

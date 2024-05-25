@@ -8,6 +8,7 @@ import { useState } from "react";
 import Button from "../UI/Button";
 import { FiX } from "react-icons/fi";
 import StatusDropdown from "./StatusDropdown";
+import { useAppSelector } from "../../store/hooks";
 
 interface TaskFormModalProps {
   open: boolean;
@@ -99,6 +100,18 @@ const TaskFormModal: React.FC<TaskFormModalProps> = (props) => {
     setDidEdits(filteredEdits);
   };
 
+  const boards = useAppSelector((state) => state.board.boards);
+  const activeBoardIndex = useAppSelector(
+    (state) => state.board.activeBoardIndex,
+  );
+  const activeBoard = boards[activeBoardIndex];
+  const options = activeBoard.columns.map((column) => column.name);
+
+  const [updatedStatus, setUpdatedStatus] = useState(options[0]);
+  const handleStatusChange = (option: string) => {
+    setUpdatedStatus(option);
+  };
+
   return (
     <DialogModal open={open} onClose={onClose}>
       <h2 className="dark:text-white">{task ? "Edit" : "Add New"} Task</h2>
@@ -163,7 +176,10 @@ const TaskFormModal: React.FC<TaskFormModalProps> = (props) => {
       {!task && (
         <label className="text-medium-gray">
           <p className="mb-2">Status</p>
-          <StatusDropdown />
+          <StatusDropdown
+            status={updatedStatus}
+            onChange={handleStatusChange}
+          />
         </label>
       )}
       <Button

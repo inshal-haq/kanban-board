@@ -4,7 +4,8 @@ import { createPortal } from "react-dom";
 import { useAppSelector } from "../../store/hooks";
 
 const StatusDropdown: React.FC<{
-  taskCurrentStatus?: string;
+  status: string;
+  onChange: (option: string) => void;
 }> = (props) => {
   const [open, setOpen] = useState(false);
   const [width, setWidth] = useState<number>(0);
@@ -18,8 +19,6 @@ const StatusDropdown: React.FC<{
   const activeBoard = boards[activeBoardIndex];
 
   const options = activeBoard.columns.map((column) => column.name);
-  const taskCurrentStatus = props.taskCurrentStatus || options[0];
-  const [status, setStatus] = useState(taskCurrentStatus);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setOpen((prevState) => !prevState);
@@ -29,7 +28,7 @@ const StatusDropdown: React.FC<{
   };
 
   const handleOptionSelect = (option: string) => {
-    setStatus(option);
+    props.onChange(option);
     setOpen(false);
   };
 
@@ -53,7 +52,7 @@ const StatusDropdown: React.FC<{
         <div
           className={`border-1 relative flex cursor-pointer items-center justify-between rounded border border-solid text-black dark:text-white ${open ? "border-main-purple" : "border-lines-light dark:border-lines-dark"} px-4 py-2`}
         >
-          {status}
+          {props.status}
           {open ? (
             <FiChevronUp className="text-lg text-main-purple" />
           ) : (

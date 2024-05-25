@@ -1,11 +1,15 @@
 import { BsCheck } from "react-icons/bs";
 import Subtask from "../../models/subtask";
-import { useState } from "react";
 
-const SubtaskCheckbox: React.FC<{ subtask: Subtask }> = (props) => {
-  const { id, title, isCompleted } = props.subtask;
+interface SubtaskCheckboxProps {
+  subtask: Subtask;
+  checked: boolean;
+  onChange: (id: string) => void;
+}
 
-  const [checked, setChecked] = useState(isCompleted);
+const SubtaskCheckbox: React.FC<SubtaskCheckboxProps> = (props) => {
+  const { subtask, checked, onChange } = props;
+  const { id, title } = subtask;
 
   let checkedStyle = "";
   if (checked) {
@@ -22,7 +26,7 @@ const SubtaskCheckbox: React.FC<{ subtask: Subtask }> = (props) => {
         className="hidden"
         id={`subtask-${id}`}
         checked={checked}
-        onChange={() => setChecked((prevState) => !prevState)}
+        onChange={() => onChange(id)}
       />
       <label
         htmlFor={`subtask-${id}`}
