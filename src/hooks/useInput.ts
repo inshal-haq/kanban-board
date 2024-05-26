@@ -9,21 +9,27 @@ export function useInput(
 
   const valueIsValid = validationFn(enteredValue);
 
-  function handleInputChange(
+  const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) {
+  ) => {
     setEnteredValue(event.target.value);
     setDidEdit(false);
-  }
+  };
 
-  function handleInputBlur() {
+  const handleInputBlur = () => {
     setDidEdit(true);
-  }
+  };
+
+  const reset = () => {
+    setEnteredValue(initialValue);
+    setDidEdit(false);
+  };
 
   return {
     value: enteredValue,
     handleInputChange,
     handleInputBlur,
     hasError: didEdit && !valueIsValid,
+    reset,
   };
 }

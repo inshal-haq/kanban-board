@@ -18,16 +18,16 @@ const DeleteBoardModal: React.FC<DeleteBoardModalProps> = (props) => {
   );
   const activeBoard = boards[activeBoardIndex];
 
-  const handleDeleteBoard = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    dispatch(boardActions.setActiveBoard(0));
     dispatch(boardActions.deleteBoard(activeBoardIndex));
-    props.onClose();
-    if (boards.length !== 0) {
-      dispatch(boardActions.setActiveBoard(0));
-    }
+    onClose();
   };
 
   return (
-    <DialogModal open={open} onClose={onClose} onFormSubmit={handleDeleteBoard}>
+    <DialogModal open={open} onClose={onClose} onFormSubmit={handleSubmit}>
       <h2 className="text-red">Delete this board?</h2>
       <div className="text-medium-gray">
         Are you sure you want to delete the ‘{activeBoard.name}’ board? This

@@ -26,7 +26,12 @@ const MainHeader: React.FC = () => {
   const isBoardEmpty = activeBoard?.columns.length === 0;
 
   const [isNewTaskModalOpen, setNewTaskModalOpen] = useState(false);
+
+  // to force a re-render when TaskFormModal opens to properly update task status
+  const [modalKey, setModalKey] = useState(0);
+
   const handleOpenNewTaskModal = () => {
+    setModalKey((prevKey) => prevKey + 1);
     setNewTaskModalOpen(true);
   };
   const handleCloseNewTaskModal = () => {
@@ -48,6 +53,7 @@ const MainHeader: React.FC = () => {
   return (
     <>
       <TaskFormModal
+        key={modalKey}
         open={isNewTaskModalOpen}
         onClose={handleCloseNewTaskModal}
       />

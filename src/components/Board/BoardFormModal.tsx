@@ -36,6 +36,7 @@ const BoardFormModal: React.FC<BoardFormModalProps> = (props) => {
     handleInputChange: handleNameChange,
     handleInputBlur: handleNameBlur,
     hasError: nameHasError,
+    reset: resetName,
   } = useInput(activeBoard?.name ?? "", isNotEmpty);
 
   const [columns, setColumns] = useState(
@@ -136,11 +137,18 @@ const BoardFormModal: React.FC<BoardFormModalProps> = (props) => {
     if (isMobile) {
       dispatch(uiActions.closeSidebar());
     }
-    props.onClose();
+    handleClose();
+  };
+
+  const handleClose = () => {
+    resetName();
+    setColumns(activeBoard?.columns ?? initialColumns);
+    setDidEdits([false, false]);
+    onClose();
   };
 
   return (
-    <DialogModal open={open} onClose={onClose} onFormSubmit={handleSubmit}>
+    <DialogModal open={open} onClose={handleClose} onFormSubmit={handleSubmit}>
       <h2 className="dark:text-white">
         {isEditing ? "Edit" : "Add New"} Board
       </h2>

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Board from "../models/board";
 
-import DUMMY_DATA from "../dummy-data.json";
+// import DUMMY_DATA from "../dummy-data.json";
 
 interface boardState {
   boards: Board[];
@@ -11,7 +11,7 @@ interface boardState {
 }
 
 const initialState: boardState = {
-  boards: DUMMY_DATA.boards || [],
+  boards: [], // DUMMY_DATA.boards || [],
   activeBoardIndex: 0,
   activeColumnIndex: 0,
   activeTaskIndex: 0,

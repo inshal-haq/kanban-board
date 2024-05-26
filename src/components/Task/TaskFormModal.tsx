@@ -105,9 +105,10 @@ const TaskFormModal: React.FC<TaskFormModalProps> = (props) => {
     (state) => state.board.activeBoardIndex,
   );
   const activeBoard = boards[activeBoardIndex];
-  const options = activeBoard.columns.map((column) => column.name);
+  const options = activeBoard?.columns.map((column) => column.name);
 
-  const [updatedStatus, setUpdatedStatus] = useState(options[0]);
+  const [updatedStatus, setUpdatedStatus] = useState(options ? options[0] : "");
+
   const handleStatusChange = (option: string) => {
     setUpdatedStatus(option);
   };
