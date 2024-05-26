@@ -11,7 +11,12 @@ const BoardOptionsDropdown: React.FC = () => {
   const [left, setLeft] = useState<number>(0);
 
   const [isEditBoardModalOpen, setEditBoardModalOpen] = useState(false);
+
+  // to force a re-render when BoardFormModal opens to properly update task status
+  const [modalKey, setModalKey] = useState(0);
+
   const handleOpenEditBoardModal = () => {
+    setModalKey((prevKey) => prevKey + 1);
     setOpen(false);
     setEditBoardModalOpen(true);
   };
@@ -38,6 +43,7 @@ const BoardOptionsDropdown: React.FC = () => {
   return (
     <>
       <BoardFormModal
+        key={modalKey}
         open={isEditBoardModalOpen}
         onClose={handleCloseEditBoardModal}
         isEditing

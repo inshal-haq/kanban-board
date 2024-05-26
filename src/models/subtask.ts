@@ -1,10 +1,12 @@
+import { v4 as uuidv4 } from "uuid";
+
 class Subtask {
   id: string;
   title: string;
   isCompleted: boolean;
 
   constructor(title: string) {
-    this.id = new Date().toISOString();
+    this.id = uuidv4();
     this.title = title;
     this.isCompleted = false;
   }

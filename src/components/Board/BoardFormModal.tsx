@@ -130,9 +130,8 @@ const BoardFormModal: React.FC<BoardFormModalProps> = (props) => {
       dispatch(boardActions.editBoard({ activeBoardIndex, plainBoard }));
     } else {
       dispatch(boardActions.addBoard(plainBoard));
+      dispatch(boardActions.setActiveBoard(boards.length));
     }
-
-    dispatch(boardActions.setActiveBoard(boards.length));
 
     if (isMobile) {
       dispatch(uiActions.closeSidebar());

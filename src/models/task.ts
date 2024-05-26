@@ -1,4 +1,5 @@
 import Subtask from "./subtask";
+import { v4 as uuidv4 } from "uuid";
 
 class Task {
   id: string;
@@ -13,7 +14,7 @@ class Task {
     status: string,
     subtasks: Subtask[],
   ) {
-    this.id = new Date().toISOString();
+    this.id = uuidv4();
     this.title = title;
     this.description = description;
     this.status = status;

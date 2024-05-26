@@ -1,4 +1,5 @@
 import Column from "./column";
+import { v4 as uuidv4 } from "uuid";
 
 class Board {
   id: string;
@@ -6,7 +7,7 @@ class Board {
   columns: Column[];
 
   constructor(name: string, columns: Column[]) {
-    this.id = new Date().toISOString();
+    this.id = uuidv4();
     this.name = name;
     this.columns = columns;
   }

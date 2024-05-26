@@ -5,7 +5,12 @@ import { useAppSelector } from "../../store/hooks";
 
 const ColumnList: React.FC = () => {
   const [isEditBoardModalOpen, setEditBoardModalOpen] = useState(false);
+
+  // to force a re-render when BoardFormModal opens to properly update task status
+  const [modalKey, setModalKey] = useState(0);
+
   const handleOpenEditBoardModal = () => {
+    setModalKey((prevKey) => prevKey + 1);
     setEditBoardModalOpen(true);
   };
   const handleCloseEditBoardModal = () => {
@@ -21,6 +26,7 @@ const ColumnList: React.FC = () => {
   return (
     <>
       <BoardFormModal
+        key={modalKey}
         open={isEditBoardModalOpen}
         onClose={handleCloseEditBoardModal}
         isEditing

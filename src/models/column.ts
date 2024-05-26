@@ -1,4 +1,5 @@
 import Task from "./task";
+import { v4 as uuidv4 } from "uuid";
 
 class Column {
   id: string;
@@ -6,7 +7,7 @@ class Column {
   tasks: Task[];
 
   constructor(name: string) {
-    this.id = new Date().toISOString();
+    this.id = uuidv4();
     this.name = name;
     this.tasks = [];
   }
