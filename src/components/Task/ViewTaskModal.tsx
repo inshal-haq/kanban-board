@@ -54,6 +54,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = (props) => {
 
   const currentStatus =
     boards[activeBoardIndex].columns[activeColumnIndex].name;
+
   const [updatedStatus, setUpdatedStatus] = useState(currentStatus);
   const handleStatusChange = (option: string) => {
     setUpdatedStatus(option);
@@ -112,22 +113,24 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = (props) => {
         <h2 className="dark:text-white">{title}</h2>
         <TaskOptionsDropdown task={props.task} />
       </div>
-      <div className="text-medium-gray">{description}</div>
-      <fieldset className="text-medium-gray">
-        <p className="mb-4">
-          Subtasks ({checkedSubtasksCount} of {subtasks.length})
-        </p>
-        <ul className="flex flex-col gap-2">
-          {subtasks.map((subtask) => (
-            <SubtaskCheckbox
-              key={subtask.id}
-              subtask={subtask}
-              checked={subtasksChecked[subtask.id]}
-              onChange={handleCheckboxChange}
-            />
-          ))}
-        </ul>
-      </fieldset>
+      {description && <div className="text-medium-gray">{description}</div>}
+      {subtasks.length > 0 && (
+        <fieldset className="text-medium-gray">
+          <p className="mb-4">
+            Subtasks ({checkedSubtasksCount} of {subtasks.length})
+          </p>
+          <ul className="flex flex-col gap-2">
+            {subtasks.map((subtask) => (
+              <SubtaskCheckbox
+                key={subtask.id}
+                subtask={subtask}
+                checked={subtasksChecked[subtask.id]}
+                onChange={handleCheckboxChange}
+              />
+            ))}
+          </ul>
+        </fieldset>
+      )}
       <label className="text-medium-gray">
         <p className="mb-2">Current Status</p>
         <StatusDropdown status={updatedStatus} onChange={handleStatusChange} />

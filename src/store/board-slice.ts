@@ -35,6 +35,31 @@ const boardSlice = createSlice({
       state.boards[boardIndex] = newBoard;
     },
 
+    addTask(state, action) {
+      const boardIndex = action.payload.activeBoardIndex;
+      const columnIndex = action.payload.selectedColumnIndex;
+      const newTask = action.payload.plainTask;
+
+      state.boards[boardIndex].columns[columnIndex].tasks.push(newTask);
+    },
+    deleteTask(state, action) {
+      const { activeBoardIndex, activeColumnIndex, activeTaskIndex } =
+        action.payload;
+
+      state.boards[activeBoardIndex].columns[activeColumnIndex].tasks.splice(
+        activeTaskIndex,
+        1,
+      );
+    },
+    editTask(state, action) {
+      const boardIndex = action.payload.activeBoardIndex;
+      const columnIndex = action.payload.activeColumnIndex;
+      const taskIndex = action.payload.activeTaskIndex;
+      const newTask = action.payload.plainTask;
+
+      state.boards[boardIndex].columns[columnIndex].tasks[taskIndex] = newTask;
+    },
+
     setActiveBoard(state, action) {
       state.activeBoardIndex = action.payload;
     },

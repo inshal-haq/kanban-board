@@ -19,9 +19,10 @@ const TaskItem: React.FC<{ task: Task; columnIndex: number }> = (props) => {
     const taskIndex = activeBoard.columns[props.columnIndex].tasks.findIndex(
       (task) => task.id === id,
     );
-    setViewTaskModalOpen(true);
     dispatch(boardActions.setActiveColumn(props.columnIndex));
     dispatch(boardActions.setActiveTask(taskIndex));
+
+    setViewTaskModalOpen(true);
   };
   const handleCloseViewTaskModal = () => {
     setViewTaskModalOpen(false);
@@ -30,6 +31,11 @@ const TaskItem: React.FC<{ task: Task; columnIndex: number }> = (props) => {
   const numOfCompletedSubtasks = subtasks.filter(
     (subtask) => subtask.isCompleted,
   ).length;
+
+  const subtaskText =
+    subtasks.length > 0
+      ? `${numOfCompletedSubtasks} of ${subtasks.length} subtask${subtasks.length > 1 ? "s" : ""}`
+      : "";
 
   return (
     <>
@@ -43,10 +49,7 @@ const TaskItem: React.FC<{ task: Task; columnIndex: number }> = (props) => {
         onClick={handleOpenViewTaskModal}
       >
         <h3>{title}</h3>
-        <p className="text-medium-gray">
-          {numOfCompletedSubtasks} of {subtasks.length} subtask
-          {subtasks.length > 1 && "s"}
-        </p>
+        <p className="text-medium-gray">{subtaskText}</p>
       </div>
     </>
   );

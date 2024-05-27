@@ -8,7 +8,8 @@ import { useState } from "react";
 import Button from "../UI/Button";
 import { FiX } from "react-icons/fi";
 import StatusDropdown from "./StatusDropdown";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { boardActions } from "../../store/board-slice";
 
 interface TaskFormModalProps {
   open: boolean;
@@ -17,6 +18,18 @@ interface TaskFormModalProps {
 }
 
 const TaskFormModal: React.FC<TaskFormModalProps> = (props) => {
+  const dispatch = useAppDispatch();
+  const boards = useAppSelector((state) => state.board.boards);
+  const activeBoardIndex = useAppSelector(
+    (state) => state.board.activeBoardIndex,
+  );
+  const activeColumnIndex = useAppSelector(
+    (state) => state.board.activeColumnIndex,
+  );
+  const activeTaskIndex = useAppSelector(
+    (state) => state.board.activeTaskIndex,
+  );
+
   const { open, onClose, task } = props;
   const isNotEmpty = (value: string) => value.trim() !== "";
   const initialSubtasks = [new Subtask(""), new Subtask("")];
@@ -100,10 +113,6 @@ const TaskFormModal: React.FC<TaskFormModalProps> = (props) => {
     setDidEdits(filteredEdits);
   };
 
-  const boards = useAppSelector((state) => state.board.boards);
-  const activeBoardIndex = useAppSelector(
-    (state) => state.board.activeBoardIndex,
-  );
   const activeBoard = boards[activeBoardIndex];
   const options = activeBoard?.columns.map((column) => column.name);
 
@@ -113,8 +122,54 @@ const TaskFormModal: React.FC<TaskFormModalProps> = (props) => {
     setUpdatedStatus(option);
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!isNotEmpty(titleValue)) {
+      return;
+    }
+
+    const nonEmptySubtasks = subtasks.filter((subtask) =>
+      isNotEmpty(subtask.title),
+    );
+
+    const newTask = new Task(
+      titleValue,
+      descriptionValue,
+      updatedStatus,
+      nonEmptySubtasks,
+    );
+    const plainTask = newTask.toPlainObject();
+
+    const selectedColumnIndex = boards[activeBoardIndex].columns.findIndex(
+      (column) => column.name === updatedStatus,
+    );
+
+    if (task) {
+      dispatch(
+        boardActions.editTask({
+          activeBoardIndex,
+          activeColumnIndex,
+          activeTaskIndex,
+          plainTask,
+        }),
+      );
+    } else {
+      dispatch(
+        boardActions.addTask({
+          plainTask,
+          activeBoardIndex,
+          selectedColumnIndex,
+        }),
+      );
+      dispatch(boardActions.setActiveColumn(selectedColumnIndex));
+    }
+
+    onClose();
+  };
+
   return (
-    <DialogModal open={open} onClose={onClose}>
+    <DialogModal open={open} onClose={onClose} onFormSubmit={handleSubmit}>
       <h2 className="dark:text-white">{task ? "Edit" : "Add New"} Task</h2>
       <label className="text-medium-gray">
         <p className="mb-2">Title</p>
@@ -141,33 +196,35 @@ const TaskFormModal: React.FC<TaskFormModalProps> = (props) => {
           error={descriptionHasError}
         />
       </label>
-      <fieldset className="text-medium-gray">
-        <label htmlFor="subtasks">
-          <p className="mb-2">Subtasks</p>
-          <ul className="flex flex-col gap-2">
-            {subtasks.map(({ id, title }, index) => (
-              <div
-                key={`${index}-${id}`}
-                className="flex flex-1 items-center gap-4"
-              >
-                <TextField
-                  id="subtasks"
-                  name="subtasks"
-                  placeholder={subtaskPlaceholder(index)}
-                  value={title}
-                  onChange={(event) => handleSubtaskChange(event, index)}
-                  onBlur={() => handleSubtaskBlur(index)}
-                  error={subtaskHasError(index)}
-                />
-                <FiX
-                  className="cursor-pointer text-xl hover:text-red"
-                  onClick={() => handleRemoveSubtask(id, index)}
-                />
-              </div>
-            ))}
-          </ul>
-        </label>
-      </fieldset>
+      {subtasks.length > 0 && (
+        <fieldset className="text-medium-gray">
+          <label htmlFor="subtasks">
+            <p className="mb-2">Subtasks</p>
+            <ul className="flex flex-col gap-2">
+              {subtasks.map(({ id, title }, index) => (
+                <div
+                  key={`${index}-${id}`}
+                  className="flex flex-1 items-center gap-4"
+                >
+                  <TextField
+                    id="subtasks"
+                    name="subtasks"
+                    placeholder={subtaskPlaceholder(index)}
+                    value={title}
+                    onChange={(event) => handleSubtaskChange(event, index)}
+                    onBlur={() => handleSubtaskBlur(index)}
+                    error={subtaskHasError(index)}
+                  />
+                  <FiX
+                    className="cursor-pointer text-xl hover:text-red"
+                    onClick={() => handleRemoveSubtask(id, index)}
+                  />
+                </div>
+              ))}
+            </ul>
+          </label>
+        </fieldset>
+      )}
       <Button
         type="button"
         title="+ Add New Subtask"
@@ -186,7 +243,6 @@ const TaskFormModal: React.FC<TaskFormModalProps> = (props) => {
       <Button
         title={task ? "Save Changes" : "Create Task"}
         className="flex justify-center bg-main-purple text-white hover:bg-main-purple-hover"
-        onClick={() => console.log("todo")}
       />
     </DialogModal>
   );
