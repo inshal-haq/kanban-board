@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Board from "../models/board";
 
-// import DUMMY_DATA from "../dummy-data.json";
+import DUMMY_DATA from "../dummy-data.json";
 
 interface boardState {
   boards: Board[];
@@ -21,6 +21,16 @@ const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
+    setDummyBoards(state) {
+      state.boards = DUMMY_DATA.boards;
+    },
+    emptyBoard(state) {
+      state.boards = [];
+      state.activeBoardIndex = 0;
+      state.activeColumnIndex = 0;
+      state.activeTaskIndex = 0;
+    },
+
     addBoard(state, action) {
       state.boards.push(action.payload);
     },

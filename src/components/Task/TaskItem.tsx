@@ -45,7 +45,7 @@ const TaskItem: React.FC<{ task: Task; columnIndex: number }> = (props) => {
         onClose={handleCloseViewTaskModal}
       />
       <div
-        className="item flex w-[280px] cursor-pointer flex-col justify-center gap-2 rounded-lg bg-white px-4 py-6 shadow-md dark:bg-dark-gray dark:text-white"
+        className="item flex w-[280px] cursor-pointer flex-col justify-center gap-2 rounded-lg bg-white px-4 py-6 shadow-md hover:text-main-purple dark:bg-dark-gray dark:text-white dark:hover:text-main-purple"
         onClick={handleOpenViewTaskModal}
       >
         <h3>{title}</h3>
