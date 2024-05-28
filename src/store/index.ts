@@ -1,16 +1,33 @@
-import { configureStore, Dispatch, PayloadAction } from "@reduxjs/toolkit";
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { configureStore, Dispatch, Middleware } from "@reduxjs/toolkit";
 import uiReducer from "./ui-slice";
 import boardReducer from "./board-slice";
 import Board from "../models/board";
 
-const serializeMiddleware =
-  () => (next: Dispatch) => (action: PayloadAction<Board>) => {
-    if (action.payload instanceof Board) {
-      const plainPayload = action.payload.toPlainObject();
-      return next({ ...action, payload: plainPayload });
-    }
-    return next(action);
-  };
+// Define a custom action type with a payload
+interface ActionWithPayload<T> {
+  type: string;
+  payload: T;
+}
+
+// Define the correct types for the serializeMiddleware
+const serializeMiddleware: Middleware<
+  {},
+  any,
+  Dispatch<ActionWithPayload<any>>
+> = () => (next) => (action: unknown) => {
+  if (
+    typeof action === "object" &&
+    action !== null &&
+    "payload" in action &&
+    action.payload instanceof Board
+  ) {
+    const plainPayload = action.payload.toPlainObject();
+    return next({ ...action, payload: plainPayload });
+  }
+  return next(action as ActionWithPayload<any>);
+};
 
 const store = configureStore({
   reducer: {

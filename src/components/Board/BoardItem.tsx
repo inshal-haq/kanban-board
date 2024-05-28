@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "../../store/hooks";
 
 import Button from "../UI/Button";
 import ColumnList from "../Column/ColumnList";
 import BoardFormModal from "./BoardFormModal";
-import { boardActions } from "../../store/board-slice";
 
 const BoardItem: React.FC = () => {
   const boards = useAppSelector((state) => state.board.boards);
@@ -32,11 +31,6 @@ const BoardItem: React.FC = () => {
     setEditBoardModalOpen(false);
   };
 
-  const dispatch = useAppDispatch();
-  const handleImportDummyBoards = () => {
-    dispatch(boardActions.setDummyBoards());
-  };
-
   return (
     <>
       <BoardFormModal
@@ -57,11 +51,6 @@ const BoardItem: React.FC = () => {
             title="+ Create New Board"
             className="bg-main-purple text-white hover:bg-main-purple-hover"
             onClick={handleOpenNewTaskModal}
-          />
-          <Button
-            title="Import Dummy Boards Data"
-            className="bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25 dark:bg-white"
-            onClick={handleImportDummyBoards}
           />
         </div>
       )}
