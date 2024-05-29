@@ -53,7 +53,7 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = (props) => {
   );
 
   const currentStatus =
-    boards[activeBoardIndex].columns[activeColumnIndex].name;
+    boards[activeBoardIndex].columns[activeColumnIndex]?.name;
 
   const [updatedStatus, setUpdatedStatus] = useState(currentStatus);
   const handleStatusChange = (option: string) => {
