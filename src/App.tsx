@@ -26,6 +26,8 @@ const App: React.FC = () => {
   useEffect(() => {
     if (!isMobile) {
       dispatch(uiActions.openSidebar());
+    } else {
+      dispatch(uiActions.closeSidebar());
     }
   }, [isMobile, dispatch]);
 
