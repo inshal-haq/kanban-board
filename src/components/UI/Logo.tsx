@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../store/hooks";
 
-import kanbanIcon from "../../assets/kanban-fill-purple.svg";
+import kanbanIcon from "../../assets/kanban-fill-green.svg";
 
 const Logo: React.FC = () => {
   const isSidebarOpen = useAppSelector((state) => state.ui.isSidebarOpen);

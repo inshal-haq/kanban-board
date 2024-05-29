@@ -19,7 +19,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   },
   "&:hover, &.Mui-focusVisible": {
     "& .MuiSwitch-track": {
-      backgroundColor: theme.palette.mode === "dark" ? "#177ddc" : "#A8A4FF",
+      backgroundColor: theme.palette.mode === "dark" ? "#177ddc" : "#3D8B70",
     },
   },
   "& .MuiSwitch-switchBase": {
@@ -29,7 +29,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
       color: "#fff",
       "& + .MuiSwitch-track": {
         opacity: 1,
-        backgroundColor: theme.palette.mode === "dark" ? "#177ddc" : "#635FC7",
+        backgroundColor: theme.palette.mode === "dark" ? "#177ddc" : "#4FB286",
       },
     },
   },
@@ -45,7 +45,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   "& .MuiSwitch-track": {
     borderRadius: 32 / 2,
     opacity: 1,
-    backgroundColor: theme.palette.mode === "dark" ? "#177ddc" : "#635FC7",
+    backgroundColor: theme.palette.mode === "dark" ? "#177ddc" : "#4FB286",
     boxSizing: "border-box",
   },
 }));

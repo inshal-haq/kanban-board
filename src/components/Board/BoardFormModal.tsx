@@ -195,12 +195,12 @@ const BoardFormModal: React.FC<BoardFormModalProps> = (props) => {
       <Button
         type="button"
         title="+ Add New Column"
-        className="flex justify-center bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25 dark:bg-white"
+        className="bg-main-green text-main-green flex justify-center bg-opacity-10 hover:bg-opacity-25 dark:bg-white"
         onClick={handleAddColumn}
       />
       <Button
         title={isEditing ? "Save Changes" : "Create Board"}
-        className="flex justify-center bg-main-purple text-white hover:bg-main-purple-hover"
+        className="bg-main-green hover:bg-main-green-hover flex justify-center text-white"
       />
     </DialogModal>
   );

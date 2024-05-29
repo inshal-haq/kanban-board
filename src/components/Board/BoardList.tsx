@@ -29,10 +29,7 @@ const BoardList: React.FC = () => {
         {boards.map((board, index) => (
           <BoardName key={board.id} name={board.name} index={index} />
         ))}
-        <NavButton
-          textColor="text-main-purple"
-          onClick={handleOpenNewTaskModal}
-        >
+        <NavButton textColor="text-main-green" onClick={handleOpenNewTaskModal}>
           <FiColumns />
           <div>+ Create New Board</div>
         </NavButton>

@@ -50,13 +50,13 @@ const StatusDropdown: React.FC<{
         onClick={handleClick}
       >
         <div
-          className={`border-1 relative flex cursor-pointer items-center justify-between rounded border border-solid text-black dark:text-white ${open ? "border-main-purple" : "border-lines-light dark:border-lines-dark"} px-4 py-2`}
+          className={`border-1 relative flex cursor-pointer items-center justify-between rounded border border-solid text-black dark:text-white ${open ? "border-main-green" : "border-lines-light dark:border-lines-dark"} px-4 py-2`}
         >
           {props.status}
           {open ? (
-            <FiChevronUp className="text-lg text-main-purple" />
+            <FiChevronUp className="text-main-green text-lg" />
           ) : (
-            <FiChevronDown className="text-lg text-main-purple" />
+            <FiChevronDown className="text-main-green text-lg" />
           )}
         </div>
       </div>

@@ -50,7 +50,7 @@ const DeleteTaskModal: React.FC<{
         <Button
           type="button"
           title="Cancel"
-          className="flex flex-1 justify-center bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25 dark:bg-white"
+          className="bg-main-green text-main-green flex flex-1 justify-center bg-opacity-10 hover:bg-opacity-25 dark:bg-white"
           onClick={onClose}
         />
       </div>

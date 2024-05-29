@@ -11,10 +11,10 @@ const NavButton: React.FC<NavButtonProps> = (props) => {
   let style = `flex items-center gap-3 rounded-br-full rounded-tr-full px-6 py-4 font-bold cursor-pointer ${textColor} `;
 
   if (active) {
-    style += "bg-main-purple";
+    style += "bg-main-green";
   } else {
     style +=
-      "hover:bg-main-purple-hover dark:hover:bg-white dark:hover:bg-opacity-100 hover:bg-opacity-15 hover:text-main-purple";
+      "hover:bg-main-green-hover dark:hover:bg-white dark:hover:bg-opacity-100 hover:bg-opacity-15 hover:text-main-green";
   }
 
   return (

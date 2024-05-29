@@ -228,7 +228,7 @@ const TaskFormModal: React.FC<TaskFormModalProps> = (props) => {
       <Button
         type="button"
         title="+ Add New Subtask"
-        className="flex justify-center bg-main-purple bg-opacity-10 text-main-purple hover:bg-opacity-25 dark:bg-white"
+        className="bg-main-green text-main-green flex justify-center bg-opacity-10 hover:bg-opacity-25 dark:bg-white"
         onClick={handleAddSubtask}
       />
       {!task && (
@@ -242,7 +242,7 @@ const TaskFormModal: React.FC<TaskFormModalProps> = (props) => {
       )}
       <Button
         title={task ? "Save Changes" : "Create Task"}
-        className="flex justify-center bg-main-purple text-white hover:bg-main-purple-hover"
+        className="bg-main-green hover:bg-main-green-hover flex justify-center text-white"
       />
     </DialogModal>
   );

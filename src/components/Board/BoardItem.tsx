@@ -49,7 +49,7 @@ const BoardItem: React.FC = () => {
           </h2>
           <Button
             title="+ Create New Board"
-            className="bg-main-purple text-white hover:bg-main-purple-hover"
+            className="bg-main-green hover:bg-main-green-hover text-white"
             onClick={handleOpenNewTaskModal}
           />
         </div>
@@ -61,7 +61,7 @@ const BoardItem: React.FC = () => {
           </h2>
           <Button
             title="+ Add New Column"
-            className="bg-main-purple text-white hover:bg-main-purple-hover"
+            className="bg-main-green hover:bg-main-green-hover text-white"
             onClick={handleOpenEditBoardModal}
           />
         </div>

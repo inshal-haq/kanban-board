@@ -10,7 +10,7 @@ import {
 } from "react-icons/fi";
 import Button from "../UI/Button";
 import Logo from "../UI/Logo";
-import kanbanIcon from "../../assets/kanban-fill-purple.svg";
+import kanbanIcon from "../../assets/kanban-fill-green.svg";
 import Sidebar from "../Sidebar/Sidebar";
 import TaskFormModal from "../Task/TaskFormModal";
 import BoardOptionsDropdown from "../Board/BoardOptionsDropdown";
@@ -68,7 +68,7 @@ const MainHeader: React.FC = () => {
               {(isKanbanEmpty || isBoardEmpty) && (
                 <Button
                   title="+ Add New Task"
-                  className="cursor-not-allowed bg-main-purple bg-opacity-25 text-white"
+                  className="bg-main-green cursor-not-allowed bg-opacity-25 text-white"
                 />
               )}
               {isKanbanEmpty && (
@@ -81,7 +81,7 @@ const MainHeader: React.FC = () => {
                 <>
                   <Button
                     title="+ Add New Task"
-                    className="bg-main-purple text-white hover:bg-main-purple-hover"
+                    className="bg-main-green hover:bg-main-green-hover text-white"
                     onClick={handleOpenNewTaskModal}
                   />
                   <BoardOptionsDropdown />
@@ -105,15 +105,15 @@ const MainHeader: React.FC = () => {
                   {activeBoard?.name}
                 </div>
                 {isSidebarOpen ? (
-                  <FiChevronUp className="mt-1 text-lg text-main-purple" />
+                  <FiChevronUp className="text-main-green mt-1 text-lg" />
                 ) : (
-                  <FiChevronDown className="mt-1 text-lg text-main-purple" />
+                  <FiChevronDown className="text-main-green mt-1 text-lg" />
                 )}
               </div>
             </div>
             <div className="flex items-center gap-2">
               {(isKanbanEmpty || isBoardEmpty) && (
-                <button className="cursor-not-allowed rounded-full bg-main-purple bg-opacity-25 px-4 py-2 text-xl font-bold text-white">
+                <button className="bg-main-green cursor-not-allowed rounded-full bg-opacity-25 px-4 py-2 text-xl font-bold text-white">
                   <FiPlus />
                 </button>
               )}
@@ -126,7 +126,7 @@ const MainHeader: React.FC = () => {
               {!isKanbanEmpty && !isBoardEmpty && (
                 <>
                   <button
-                    className="cursor-pointer rounded-full bg-main-purple px-4 py-2 text-xl font-bold text-white hover:bg-main-purple-hover"
+                    className="bg-main-green hover:bg-main-green-hover cursor-pointer rounded-full px-4 py-2 text-xl font-bold text-white"
                     onClick={handleOpenNewTaskModal}
                   >
                     <FiPlus />
