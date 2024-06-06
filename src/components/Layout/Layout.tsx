@@ -37,13 +37,13 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
           <main
             className={`flex flex-col ${isMobile && isSidebarOpen && "h-screen"}`}
           >
-            <div className="fixed top-0 z-10 h-[86px] w-full bg-white dark:bg-dark-gray">
+            <div className="fixed top-0 z-10 w-full bg-white dark:bg-dark-gray">
               <MainHeader />
             </div>
             {isMobile && isSidebarOpen && (
               <div
                 className="fixed bottom-0 w-full bg-black bg-opacity-60"
-                style={{ height: "calc(100vh - 86px)" }}
+                style={{ height: "100vh" }}
                 onClick={closeSidebarHandler}
               ></div>
             )}
@@ -53,7 +53,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = (props) => {
           </main>
           {!isMobile && (
             <h3
-              className="bg-main-green hover:bg-main-green-hover fixed bottom-6 left-0 cursor-pointer rounded-br-full rounded-tr-full py-4 pl-4 pr-5 font-bold text-white hover:bg-opacity-80"
+              className="fixed bottom-6 left-0 cursor-pointer rounded-br-full rounded-tr-full bg-main-green py-4 pl-4 pr-5 font-bold text-white hover:bg-main-green-hover hover:bg-opacity-80"
               onClick={openSidebarHandler}
             >
               <FiEye />

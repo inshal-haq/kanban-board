@@ -68,7 +68,7 @@ const MainHeader: React.FC = () => {
               {(isKanbanEmpty || isBoardEmpty) && (
                 <Button
                   title="+ Add New Task"
-                  className="bg-main-green cursor-not-allowed bg-opacity-25 text-white"
+                  className="cursor-not-allowed bg-main-green bg-opacity-25 text-white"
                 />
               )}
               {isKanbanEmpty && (
@@ -81,7 +81,7 @@ const MainHeader: React.FC = () => {
                 <>
                   <Button
                     title="+ Add New Task"
-                    className="bg-main-green hover:bg-main-green-hover text-white"
+                    className="bg-main-green text-white hover:bg-main-green-hover"
                     onClick={handleOpenNewTaskModal}
                   />
                   <BoardOptionsDropdown />
@@ -94,26 +94,26 @@ const MainHeader: React.FC = () => {
       {isMobile && (
         <>
           <Sidebar />
-          <header className="flex select-none items-center justify-between bg-white px-7 py-5 dark:bg-dark-gray dark:text-white">
+          <header className="flex select-none items-center justify-between bg-white px-4 py-5 dark:bg-dark-gray dark:text-white">
             <div className="flex items-center gap-4">
-              <img src={kanbanIcon} alt="kanban icon" width={36} />
+              <img src={kanbanIcon} alt="kanban icon" width={24} />
               <div
-                className="flex cursor-pointer items-center gap-2"
+                className="flex cursor-pointer items-center gap-1"
                 onClick={toggleSidebarModal}
               >
-                <div className="text-2xl font-bold leading-8">
+                <div className="text-lg font-bold leading-8">
                   {activeBoard?.name}
                 </div>
                 {isSidebarOpen ? (
-                  <FiChevronUp className="text-main-green mt-1 text-lg" />
+                  <FiChevronUp className="text-md text-main-green" />
                 ) : (
-                  <FiChevronDown className="text-main-green mt-1 text-lg" />
+                  <FiChevronDown className="text-md text-main-green" />
                 )}
               </div>
             </div>
             <div className="flex items-center gap-2">
               {(isKanbanEmpty || isBoardEmpty) && (
-                <button className="bg-main-green cursor-not-allowed rounded-full bg-opacity-25 px-4 py-2 text-xl font-bold text-white">
+                <button className="cursor-not-allowed rounded-full bg-main-green bg-opacity-25 px-3 py-1 text-lg font-bold text-white">
                   <FiPlus />
                 </button>
               )}
@@ -126,7 +126,7 @@ const MainHeader: React.FC = () => {
               {!isKanbanEmpty && !isBoardEmpty && (
                 <>
                   <button
-                    className="bg-main-green hover:bg-main-green-hover cursor-pointer rounded-full px-4 py-2 text-xl font-bold text-white"
+                    className="cursor-pointer rounded-full bg-main-green px-3 py-1 text-lg font-bold text-white hover:bg-main-green-hover"
                     onClick={handleOpenNewTaskModal}
                   >
                     <FiPlus />

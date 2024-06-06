@@ -42,7 +42,7 @@ const Sidebar: React.FC = () => {
       )}
       {isMobile && (
         <div
-          className={`fixed z-10 ml-20 mt-24 w-72 rounded-lg  bg-white dark:bg-dark-gray ${isSidebarOpen ? "block" : "hidden"} `}
+          className={`fixed z-10 ml-12 mt-20 w-72 rounded-lg  bg-white dark:bg-dark-gray ${isSidebarOpen ? "block" : "hidden"} `}
         >
           <nav className="mt-2 w-full pr-6">
             <BoardList />
