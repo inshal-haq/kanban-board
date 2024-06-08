@@ -1,7 +1,7 @@
 # Kanban Board
 A task management web app
 
-[live link](https://inshal-haq.github.io/kanban-board){:target="_blank" rel="noopener"}
+live link - https://inshal-haq.github.io/kanban-board
 
 ## Functions
 - Create, edit, or delete Boards
