@@ -8,7 +8,7 @@ interface uiState {
 
 const initialState: uiState = {
   isMobile: false,
-  isDarkMode: true,
+  isDarkMode: false,
   isSidebarOpen: false,
 };
 

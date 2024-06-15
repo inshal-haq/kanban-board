@@ -3,7 +3,7 @@ import SubtaskCheckbox from "./SubtaskCheckbox";
 import DialogModal from "../UI/DialogModal";
 import StatusDropdown from "./StatusDropdown";
 import TaskOptionsDropdown from "./TaskOptionsDropdown";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { boardActions } from "../../store/board-slice";
 
@@ -59,6 +59,10 @@ const ViewTaskModal: React.FC<ViewTaskModalProps> = (props) => {
   const handleStatusChange = (option: string) => {
     setUpdatedStatus(option);
   };
+
+  useEffect(() => {
+    setUpdatedStatus(currentStatus);
+  }, [currentStatus]);
 
   const handleCloseViewTaskModal = () => {
     let changedSubtasks = false;
