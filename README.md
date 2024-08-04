@@ -13,6 +13,12 @@ live link - https://inshal-haq.github.io/kanban-board
 - On Task view, toggle Subtasks as complete/incomplete
 - On Task view, move Task between Columns
 
+## Technologies Used
+
+- React (w/ Redux Toolkit)
+- Tailwind CSS
+- TypeScript
+
 ## Dark Theme
 
 <img width="1512" alt="Kanban board dark theme" src="https://github.com/inshal-haq/kanban-board/assets/24238691/e1682a5d-c035-479e-bb5f-ee58e9a69cf4">
@@ -25,8 +31,4 @@ live link - https://inshal-haq.github.io/kanban-board
 
 <img width="260" height="563" alt="Kanban board mobile view" src="https://github.com/inshal-haq/kanban-board/assets/24238691/04680e06-ca44-45dd-8faf-0e03035eb569">
 
-## Technologies Used
 
-- React (w/ Redux Toolkit)
-- Tailwind CSS
-- TypeScript
